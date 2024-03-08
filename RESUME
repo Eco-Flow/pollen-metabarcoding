@@ -1,0 +1,5 @@
+#!/bin/bash
+
+set -euo pipefail
+
+nextflow run main.nf --input data/input.csv -profile docker,local --clean false
