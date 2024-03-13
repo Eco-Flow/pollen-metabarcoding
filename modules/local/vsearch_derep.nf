@@ -1,4 +1,4 @@
-process VSEARCH_FASTQ_FILTER {
+process VSEARCH_DEREP_FULL_LENGTH {
     tag "${meta.id}"
     label 'process_low'
 
@@ -7,12 +7,13 @@ process VSEARCH_FASTQ_FILTER {
         'biocontainers/vsearch:2.21.1--h95f258a_0' }"
 
     input:
-    tuple val(meta), path(merged_fastq)
+    tuple val(meta), path(filtered_fasta)
 
     output:
-    tuple val(meta), path('*.filtered.fasta')   , emit: fasta
-    path "*.filtered.log"            , emit: log
-    path "versions.yml"              , emit: versions
+    tuple val(meta), path('*.derep.fasta')   , emit: fasta
+    tuple val(meta), path('*.derep.uc')      , emit: clustering
+    path "*.derep.log"                       , emit: log
+    path "versions.yml"                      , emit: versions
 
     when:
     task.ext.when == null || task.ext.when
@@ -23,9 +24,11 @@ process VSEARCH_FASTQ_FILTER {
 
     """
     vsearch \\
-        --fastq_filter ${merged_fastq} \\
+        --derep_fulllength ${filtered_fasta} \\
         $args \\
-        --fastaout ${prefix}.filtered.fasta 2>&1 | tee ${prefix}.filtered.log
+        --relabel "${prefix}." \\
+        --uc ${prefix}.derep.uc \\
+        --output ${prefix}.derep.fasta 2>&1 | tee ${prefix}.derep.log
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
