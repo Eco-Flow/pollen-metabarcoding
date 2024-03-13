@@ -2,5 +2,6 @@
 
 set -euo pipefail
 
-nextflow run main.nf --input data/input.csv -profile docker,local --clean false \
-   --FW_primer "ATGCGATACTTGGTGTGAAT" --RV_primer "GCATATCAATAAGCGGAGGA" --single_end false --retain_untrimmed true
+nextflow run main.nf --input data/input.csv -profile docker,local --clean false -resume \
+   --FW_primer "ATGCGATACTTGGTGTGAAT" --RV_primer "GCATATCAATAAGCGGAGGA" --single_end false --retain_untrimmed true \
+   --fastq_maxee 0.5 --fastq_minlen 250 --fastq_maxns 0 --fasta_width 0
