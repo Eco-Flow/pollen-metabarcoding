@@ -19,6 +19,7 @@ include { CUTADAPT } from './modules/nf-core/cutadapt/main'
 include { VSEARCH_FASTQ_FILTER } from './modules/local/vsearch_fastq_filter.nf'
 include { VSEARCH_DEREP_FULL_LENGTH } from './modules/local/vsearch_derep.nf'
 include { VSEARCH_SINTAX } from './modules/nf-core/vsearch/sintax/main'
+include { R_PROCESSING } from './modules/local/r_processing.nf'
 
 workflow {
   if (params.help) {
@@ -41,4 +42,5 @@ workflow {
   //Need to ensure the database is provided to each fasta file
   VSEARCH_DEREP_FULL_LENGTH.out.fasta | combine(ch_database) | multiMap { it -> fa: [it[0], it[1]]; db: it[2] } | set { ch_sintax } 
   VSEARCH_SINTAX(ch_sintax.fa, ch_sintax.db)
+  R_PROCESSING(VSEARCH_SINTAX.out.tsv)  
 }
