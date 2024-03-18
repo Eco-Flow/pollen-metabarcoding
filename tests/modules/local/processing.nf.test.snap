@@ -1,0 +1,27 @@
+{
+    "Should run without failures": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "ERR2537816",
+                            "single_end": true
+                        },
+                        "ERR2537816.classified.tsv:md5,58f98a56c0746e50cf57e944d80c3dc0"
+                    ]
+                ],
+                "fasta": [
+                    [
+                        {
+                            "id": "ERR2537816",
+                            "single_end": true
+                        },
+                        "ERR2537816.classified.tsv:md5,58f98a56c0746e50cf57e944d80c3dc0"
+                    ]
+                ]
+            }
+        ],
+        "timestamp": "2024-03-18T13:26:45.995951"
+    }
+}
