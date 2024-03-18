@@ -1,0 +1,29 @@
+nextflow_process {
+
+    name "Test Process CUTADAPT"
+    script "modules/nf-core/cutadapt/main.nf"
+    process "CUTADAPT"
+
+    test("Should run without failures") {
+
+        when {
+            params {
+                clean = false
+                FW_primer = "ATGCGATACTTGGTGTGAAT"
+                RV_primer = "GCATATCAATAAGCGGAGGA"
+            }
+            process {
+                """
+                input[0] = Channel.of( [ [ "id":"ERR2537816", "single_end": false ], [ file("${projectDir}/data/trimming-input/ERR2537816_1.fastq.gz"), file("${projectDir}/data/trimming-input/ERR2537816_2.fastq.gz") ] ] )
+                """
+            }
+        }
+
+        then {
+            assert process.success
+            assert snapshot(process.out).match()
+        }
+
+    }
+
+}
