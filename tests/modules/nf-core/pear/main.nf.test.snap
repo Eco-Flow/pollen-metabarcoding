@@ -1,0 +1,75 @@
+{
+    "Should run without failures": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "ERR2537816",
+                            "single_end": false
+                        },
+                        "ERR2537816.assembled.fastq.gz:md5,1d5d5614d36420b3147f877d525d9b48"
+                    ]
+                ],
+                "1": [
+                    [
+                        {
+                            "id": "ERR2537816",
+                            "single_end": false
+                        },
+                        "ERR2537816.unassembled.forward.fastq.gz:md5,8a858e0ee6b6030ade6f02d8c8e563e7",
+                        "ERR2537816.unassembled.reverse.fastq.gz:md5,fa387d24b5b3ce0ac18a1d93b0ef8ade"
+                    ]
+                ],
+                "2": [
+                    [
+                        {
+                            "id": "ERR2537816",
+                            "single_end": false
+                        },
+                        "ERR2537816.discarded.fastq.gz:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "3": [
+                    "versions.yml:md5,e43b94e38546fb17eb163c68abdc9b34"
+                ],
+                "assembled": [
+                    [
+                        {
+                            "id": "ERR2537816",
+                            "single_end": false
+                        },
+                        "ERR2537816.assembled.fastq.gz:md5,1d5d5614d36420b3147f877d525d9b48"
+                    ]
+                ],
+                "discarded": [
+                    [
+                        {
+                            "id": "ERR2537816",
+                            "single_end": false
+                        },
+                        "ERR2537816.discarded.fastq.gz:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "unassembled": [
+                    [
+                        {
+                            "id": "ERR2537816",
+                            "single_end": false
+                        },
+                        "ERR2537816.unassembled.forward.fastq.gz:md5,8a858e0ee6b6030ade6f02d8c8e563e7",
+                        "ERR2537816.unassembled.reverse.fastq.gz:md5,fa387d24b5b3ce0ac18a1d93b0ef8ade"
+                    ]
+                ],
+                "versions": [
+                    "versions.yml:md5,e43b94e38546fb17eb163c68abdc9b34"
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "23.10.1"
+        },
+        "timestamp": "2024-03-18T14:55:50.539657"
+    }
+}
