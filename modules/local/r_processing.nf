@@ -19,7 +19,7 @@ process R_PROCESSING {
         Rscript ${projectDir}/bin/summarize_classification_sintax.R --input=${sintax_tsv} --output=${meta.id}
     fi
 
-     md5sum "${meta.id}.classified.tsv" > "${meta.id}.classified.tsv.md5"
+    md5sum "${meta.id}.classified.tsv" > "${meta.id}.classified.tsv.md5"
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
