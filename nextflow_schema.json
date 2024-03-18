@@ -147,43 +147,43 @@
           "description": "Cutadapt retain untrimmed parameter."
         },
         "pear_p_value": {
-          "type": "string",
+          "type": "integer",
           "description": "Pear p-value parameter."
         },
         "pear_min_overlap": {
-          "type": "string",
+          "type": "integer",
           "description": "Pear min overlap parameter."
         },
         "pear_max_len": {
-          "type": "string",
+          "type": "integer",
           "description": "Pear max length parameter."
         },
         "pear_min_len": {
-          "type": "string",
+          "type": "integer",
           "description": "Pear min length parameter."
         },
         "pear_trimmed_min_len": {
-          "type": "string",
+          "type": "integer",
           "description": "Pear trimmed min length parameter."
         },
         "pear_quality": {
-          "type": "string",
+          "type": "integer",
           "description": "Pear quality score threshold parameter."
         },
         "pear_max_uncalled": {
-          "type": "string",
+          "type": "integer",
           "description": "Pear percentage max uncalled parameter."
         },
         "pear_stat_test": {
-          "type": "string",
-          "description": "Pear statistical test parameter."
+          "type": "integer",
+          "description": "Pear statistical test parameter (1 or 2 - check their docs for details)."
         },
         "pear_scoring_method": {
-          "type": "string",
-          "description": "Pear scoring method parameter."
+          "type": "integer",
+          "description": "Pear scoring method parameter (1,2 or 3 - check their docs for details)."
         },
         "pear_phred": {
-          "type": "string",
+          "type": "integer",
           "description": "Pear phred score threshold parameter."
         },
         "fastq_maxee": {
@@ -191,19 +191,19 @@
           "description": "vsearch fastq max expected errors parameter."
         },
         "fastq_minlen": {
-          "type": "string",
+          "type": "integer",
           "description": "vsearch fastq min length parameter."
         },
         "fastq_maxns": {
-          "type": "string",
+          "type": "integer",
           "description": "vsearch max Ns parameter."
         },
         "fasta_width": {
-          "type": "string",
+          "type": "integer",
           "description": "vsearch fasta width parameter."
         },
         "minuniquesize": {
-          "type": "string",
+          "type": "integer",
           "description": "vsearch min unique size parameter."
         },
         "derep_strand": {
@@ -211,7 +211,7 @@
           "description": "vsearch fastq dereplicate strand parameter."
         },
         "sizeout": {
-          "type": "string",
+          "type": "boolean",
           "description": "vsearch fasta abundance annotations parameter."
         },
         "sintax_cutoff": {
