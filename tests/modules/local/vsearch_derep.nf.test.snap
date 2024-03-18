@@ -6,7 +6,7 @@
                     [
                         {
                             "id": "ERR2537816",
-                            "single_end": true
+                            "single_end": false
                         },
                         "ERR2537816.derep.fasta:md5,664eaf12d13a13d32b8caffcb031c48d"
                     ]
@@ -15,7 +15,7 @@
                     [
                         {
                             "id": "ERR2537816",
-                            "single_end": true
+                            "single_end": false
                         },
                         "ERR2537816.derep.uc:md5,35265131266966e6eefe2099725e127b"
                     ]
@@ -30,7 +30,7 @@
                     [
                         {
                             "id": "ERR2537816",
-                            "single_end": true
+                            "single_end": false
                         },
                         "ERR2537816.derep.uc:md5,35265131266966e6eefe2099725e127b"
                     ]
@@ -39,7 +39,7 @@
                     [
                         {
                             "id": "ERR2537816",
-                            "single_end": true
+                            "single_end": false
                         },
                         "ERR2537816.derep.fasta:md5,664eaf12d13a13d32b8caffcb031c48d"
                     ]
@@ -56,6 +56,6 @@
             "nf-test": "0.8.4",
             "nextflow": "23.10.1"
         },
-        "timestamp": "2024-03-18T14:20:01.852471"
+        "timestamp": "2024-03-18T14:36:12.132436"
     }
 }

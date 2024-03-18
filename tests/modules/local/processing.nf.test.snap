@@ -6,7 +6,7 @@
                     [
                         {
                             "id": "ERR2537816",
-                            "single_end": true
+                            "single_end": false
                         },
                         "ERR2537816.classified.tsv:md5,58f98a56c0746e50cf57e944d80c3dc0"
                     ]
@@ -15,13 +15,17 @@
                     [
                         {
                             "id": "ERR2537816",
-                            "single_end": true
+                            "single_end": false
                         },
                         "ERR2537816.classified.tsv:md5,58f98a56c0746e50cf57e944d80c3dc0"
                     ]
                 ]
             }
         ],
-        "timestamp": "2024-03-18T13:26:45.995951"
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "23.10.1"
+        },
+        "timestamp": "2024-03-18T14:36:04.799821"
     }
 }

@@ -12,7 +12,7 @@ nextflow_process {
             }
             process {
                 """
-                input[0] = Channel.of( [ [ "id":"ERR2537816", "single_end": true ], file("${projectDir}/data/processing-input/ERR2537816.tsv") ] ) 
+                input[0] = Channel.of( [ [ "id":"ERR2537816", "single_end": false ], file("${projectDir}/data/processing-input/ERR2537816.tsv") ] ) 
                 """
             }
         }

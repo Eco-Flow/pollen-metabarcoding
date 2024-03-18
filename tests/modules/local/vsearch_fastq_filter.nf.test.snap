@@ -6,7 +6,7 @@
                     [
                         {
                             "id": "ERR2537816",
-                            "single_end": true
+                            "single_end": false
                         },
                         "ERR2537816.filtered.fasta:md5,6d9fa0fae486b91ca66f8ac12918de3a"
                     ]
@@ -21,7 +21,7 @@
                     [
                         {
                             "id": "ERR2537816",
-                            "single_end": true
+                            "single_end": false
                         },
                         "ERR2537816.filtered.fasta:md5,6d9fa0fae486b91ca66f8ac12918de3a"
                     ]
@@ -38,6 +38,6 @@
             "nf-test": "0.8.4",
             "nextflow": "23.10.1"
         },
-        "timestamp": "2024-03-18T14:24:00.77814"
+        "timestamp": "2024-03-18T14:36:15.512404"
     }
 }
