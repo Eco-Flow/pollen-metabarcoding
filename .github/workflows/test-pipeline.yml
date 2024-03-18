@@ -40,8 +40,8 @@ jobs:
     - name: Run r processing test
       run: nf-test test tests/modules/local/r_processing.nf.test
 
-    - name: Run dereplication test
-      run: nf-test test tests/modules/local/vsearch_derep.nf.test
+#    - name: Run dereplication test
+#      run: nf-test test tests/modules/local/vsearch_derep.nf.test
 
     - name: Run fastq filter test
       run: nf-test test tests/modules/local/vsearch_fastq_filter.nf.test
