@@ -1,0 +1,61 @@
+{
+    "Should run without failures": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "ERR2537816",
+                            "single_end": true
+                        },
+                        "ERR2537816.derep.fasta:md5,664eaf12d13a13d32b8caffcb031c48d"
+                    ]
+                ],
+                "1": [
+                    [
+                        {
+                            "id": "ERR2537816",
+                            "single_end": true
+                        },
+                        "ERR2537816.derep.uc:md5,35265131266966e6eefe2099725e127b"
+                    ]
+                ],
+                "2": [
+                    "ERR2537816.derep.log:md5,fb991afad2865704df94457ea57dcf0d"
+                ],
+                "3": [
+                    "versions.yml:md5,305e6ee15808259751e1e6397a4acb4c"
+                ],
+                "clustering": [
+                    [
+                        {
+                            "id": "ERR2537816",
+                            "single_end": true
+                        },
+                        "ERR2537816.derep.uc:md5,35265131266966e6eefe2099725e127b"
+                    ]
+                ],
+                "fasta": [
+                    [
+                        {
+                            "id": "ERR2537816",
+                            "single_end": true
+                        },
+                        "ERR2537816.derep.fasta:md5,664eaf12d13a13d32b8caffcb031c48d"
+                    ]
+                ],
+                "log": [
+                    "ERR2537816.derep.log:md5,fb991afad2865704df94457ea57dcf0d"
+                ],
+                "versions": [
+                    "versions.yml:md5,305e6ee15808259751e1e6397a4acb4c"
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "23.10.1"
+        },
+        "timestamp": "2024-03-18T14:20:01.852471"
+    }
+}

@@ -1,4 +1,5 @@
 process VSEARCH_DEREP_FULL_LENGTH {
+
     tag "${meta.id}"
     label 'process_low'
 
@@ -30,9 +31,10 @@ process VSEARCH_DEREP_FULL_LENGTH {
         --uc ${prefix}.derep.uc \\
         --output ${prefix}.derep.fasta 2>&1 | tee ${prefix}.derep.log
 
-    cat <<-END_VERSIONS > versions.yml
+    md5sum "${prefix}.derep.fasta" > "${prefix}.derep.fasta.md5"
+    md5sum "${prefix}.derep.uc" > "${prefix}.derep.uc.md5"
 
-     md5sum "${prefix}.derep.fasta" > "${prefix}.derep.fasta.md5"
+    cat <<-END_VERSIONS > versions.yml
 
     "${task.process}":
         vsearch: \$(vsearch --version 2>&1 | head -n 1 | sed 's/vsearch //g' | sed 's/,.*//g' | sed 's/^v//' | sed 's/_.*//')
