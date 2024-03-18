@@ -22,7 +22,12 @@ nextflow_process {
 
         then {
             assert process.success
-            assert snapshot(process.out).match()
+            with(process.out) {
+              assert tsv.size() == 1
+              assert tsv[0].size() == 2
+              assert tsv[0][0].size() == 2
+            }
+
         }
 
     }

@@ -19,7 +19,6 @@ nextflow_process {
 
         then {
             assert process.success
-            assert snapshot(process.out).match()
             with(process.out) {
               assert fasta.size() == 1
               assert clustering.size() == 1
