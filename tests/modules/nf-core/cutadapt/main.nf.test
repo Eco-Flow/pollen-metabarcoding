@@ -21,7 +21,14 @@ nextflow_process {
 
         then {
             assert process.success
-            assert snapshot(process.out).match()
+            with(process.out) {
+              assert reads.size() == 1
+              assert reads[0].size() == 2
+              assert reads[0][0].size() == 2
+              assert reads[0][1].size() == 2
+              assert path(reads[0][1].get(0)).md5 == 'cd2ed3747e5e3280f12a227433c73cae'
+              assert path(reads[0][1].get(1)).md5 == '194a5403ffd5f9506f12bb035fd04448'
+            }
         }
 
     }
