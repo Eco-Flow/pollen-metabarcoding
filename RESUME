@@ -2,9 +2,8 @@
 
 set -euo pipefail
 
-#--input data/input.csv
-nextflow run main.nf --input all-fqs.csv -profile docker,local --clean false -resume \
+nextflow run main.nf --input data/input-s3.csv -profile docker,local --clean false -resume \
    --FW_primer "ATGCGATACTTGGTGTGAAT" --RV_primer "GCATATCAATAAGCGGAGGA" --single_end false --retain_untrimmed true \
    --fastq_maxee 0.5 --fastq_minlen 250 --fastq_maxns 0 --fasta_width 0 \
    --minuniquesize 2 --derep_strand "plus" --sizeout \
-   --database data/viridiplantae_all_2014.sintax.fa --sintax_strand "both" --sintax_cutoff 0.95 
+   --database "s3://pollen-metabarcoding-test-data/data/viridiplantae_all_2014.sintax.fa" --sintax_strand "both" --sintax_cutoff 0.95 
