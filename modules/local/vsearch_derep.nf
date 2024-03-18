@@ -31,6 +31,9 @@ process VSEARCH_DEREP_FULL_LENGTH {
         --output ${prefix}.derep.fasta 2>&1 | tee ${prefix}.derep.log
 
     cat <<-END_VERSIONS > versions.yml
+
+     md5sum "${prefix}.derep.fasta" > "${prefix}.derep.fasta.md5"
+
     "${task.process}":
         vsearch: \$(vsearch --version 2>&1 | head -n 1 | sed 's/vsearch //g' | sed 's/,.*//g' | sed 's/^v//' | sed 's/_.*//')
     END_VERSIONS

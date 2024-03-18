@@ -19,6 +19,8 @@ process R_PROCESSING {
         Rscript ${projectDir}/bin/summarize_classification_sintax.R --input=${sintax_tsv} --output=${meta.id}
     fi
 
+     md5sum "${meta.id}.classified.tsv" > "${meta.id}.classified.tsv.md5"
+
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
         R version: \$(R --version | grep "R version" | sed 's/[(].*//' | sed 's/ //g' | sed 's/[^0-9]*//')
