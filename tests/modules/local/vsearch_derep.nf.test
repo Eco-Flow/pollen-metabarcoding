@@ -8,27 +8,55 @@ nextflow_process {
 
         when {
             params {
+                //Ensure Nextlfow cleanup function is not set so work directory can be evaluated
                 clean = false
+                //Set output directory so specific files can be snapshotted
+                outdir = "results"
             }
             process {
                 """
-                input[0] = Channel.of( [ [ "id":"ERR2537816", "single_end": false ], file("${projectDir}/data/derep-input/ERR2537816.filtered.fasta") ] )
+                input[0] = Channel.of( [ [ "id": "ERR2537816", "single_end": false ], file("${projectDir}/data/derep-input/ERR2537816.filtered.fasta") ] )
                 """
             }
         }
 
         then {
+            //Check process succeeds
             assert process.success
-            with(process.out) {
-              assert fasta.size() == 1
-              assert clustering.size() == 1
-              assert fasta[0].size() == 2
-              assert fasta[0][0].size() == 2
-              assert path(fasta[0].get(1)).md5 == '664eaf12d13a13d32b8caffcb031c48d'
-              assert path(clustering[0].get(1)).md5 == '35265131266966e6eefe2099725e127b'
+            //Check each channel individually
+            with(process.out.fasta) {
+                //Check one tuple exists
+                assert size() == 1
+                with(get(0)) {
+                    //Check first element if tuple is a tuple of expected values
+                    assert get(0) == [ "id": "ERR2537816", "single_end": false ]
+                    //Check second element of tuple is a path to the correct fasta file
+                    assert get(1) ==~ ".*/ERR2537816.derep.fasta"
+                }
             }
+            with(process.out.clustering) {
+                //Check one tuple exists
+                assert size() == 1
+                with(get(0)) {
+                    //Check first element if tuple is a tuple of expected values
+                    assert get(0) ==  [ "id": "ERR2537816", "single_end": false ]
+                    //Check second element of tuple is a path to the correct clustering file
+                    assert get(1) ==~ ".*/ERR2537816.derep.uc"
+               }
+            }
+            //Check one log file exists
+            assert process.out.log.size() == 1
+            //Check the path is to the correct log file
+            assert process.out.log.get(0) ==~ ".*/ERR2537816.derep.log"
+            //Check one versions file exists
+            assert process.out.versions.size() == 1
+            //Check the path is to the versions file
+            assert process.out.versions.get(0) ==~ ".*/versions.yml"
+            //Check the md5sums of the fasta and clustering
+            assert snapshot(
+              path("${params.outdir}/vsearch/derep/ERR2537816.derep.fasta"),
+              path("${params.outdir}/vsearch/derep/ERR2537816.derep.uc")
+            ).match("vsearch_dereplicate") 
         }
-
     }
-
 }
