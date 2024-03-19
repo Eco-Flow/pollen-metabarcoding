@@ -187,7 +187,7 @@
           "description": "Pear phred score threshold parameter."
         },
         "fastq_maxee": {
-          "type": "string",
+          "type": "number",
           "description": "vsearch fastq max expected errors parameter."
         },
         "fastq_minlen": {
@@ -215,7 +215,7 @@
           "description": "vsearch fasta abundance annotations parameter."
         },
         "sintax_cutoff": {
-          "type": "string",
+          "type": "number",
           "description": "vsearch sintax cutoff parameter."
         },
         "sintax_strand": {
