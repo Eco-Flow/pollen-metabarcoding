@@ -88,7 +88,6 @@ workflow {
   //Original scripts used R for wrangling the sintax output, same can be done with a single line of bash code so made the R script an optional module
   if (params.r_processing == true) {
     R_PROCESSING(VSEARCH_SINTAX.out.tsv)
-    ch_versions = ch_versions.mix(R_PROCESSING.out.versions.first())
   }
   else {
     PROCESSING(VSEARCH_SINTAX.out.tsv)
