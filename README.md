@@ -108,7 +108,7 @@ If you want to run this pipeline on your institute's on-premise HPC or specific 
 nextflow run main.nf -profile docker,local -resume --input data/input-s3.csv --database "s3://pollen-metabarcoding-test-data/data/viridiplantae_all_2014.sintax.fa" --FW_primer "ATGCGATACTTGGTGTGAAT" --RV_primer "GCATATCAATAAGCGGAGGA"
 ```
 
-(The exampel database was obtained from: https://github.com/molbiodiv/meta-barcoding-dual-indexing/blob/master/precomputed/viridiplantae_all_2014.sintax.fa)
+(The example database was obtained from [molbiodiv/meta-barcoding-dual-indexing](https://github.com/molbiodiv/meta-barcoding-dual-indexing/blob/master/precomputed/viridiplantae_all_2014.sintax.fa)).
 
 * Running the pipeline with Singularity and test profiles:
 ```
