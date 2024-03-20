@@ -104,12 +104,16 @@ If you want to run this pipeline on your institute's on-premise HPC or specific 
 **Please note:** The `-resume` flag uses previously cached successful runs of the pipeline.
 
 * Running the pipeline with local and Docker profiles:
-`nextflow run main.nf -profile docker,local -resume --input data/input-s3.csv --database "s3://pollen-metabarcoding-test-data/data/viridiplantae_all_2014.sintax.fa" --FW_primer "ATGCGATACTTGGTGTGAAT" --RV_primer "GCATATCAATAAGCGGAGGA"`
+```
+nextflow run main.nf -profile docker,local -resume --input data/input-s3.csv --database "s3://pollen-metabarcoding-test-data/data/viridiplantae_all_2014.sintax.fa" --FW_primer "ATGCGATACTTGGTGTGAAT" --RV_primer "GCATATCAATAAGCGGAGGA"
+```
 
 (The exampel database was obtained from: https://github.com/molbiodiv/meta-barcoding-dual-indexing/blob/master/precomputed/viridiplantae_all_2014.sintax.fa)
 
 * Running the pipeline with Singularity and test profiles:
-`nextflow run main.nf -profile singularity,test`
+```
+nextflow run main.nf -profile singularity,test -resume --input data/input-s3.csv --database "s3://pollen-metabarcoding-test-data/data/viridiplantae_all_2014.sintax.fa" --FW_primer "ATGCGATACTTGGTGTGAAT" --RV_primer "GCATATCAATAAGCGGAGGA"
+```
 
 * Running the pipeline with additional parameters:
 ```
@@ -120,10 +124,12 @@ nextflow run main.nf -profile apptainer,local -resume --input data/input-s3.csv 
    --fastq_maxee 0.5 --fastq_minlen 250 --fastq_maxns 0 --fasta_width 0 \
    --minuniquesize 2 --derep_strand "plus" --sizeout \
    --sintax_strand "both" --sintax_cutoff 0.95
-``
+```
 
 * Running the pipeline with a custom config file:
-`nextflow run main.nf -profile docker,aws_batch -resume --input data/input-s3.csv --database "s3://pollen-metabarcoding-test-data/data/viridiplantae_all_2014.sintax.fa" --FW_primer "ATGCGATACTTGGTGTGAAT" --RV_primer "GCATATCAATAAGCGGAGGA" --custom_config /path/to/custom/config`
+```
+nextflow run main.nf -profile docker,aws_batch -resume --input data/input-s3.csv --database "s3://pollen-metabarcoding-test-data/data/viridiplantae_all_2014.sintax.fa" --FW_primer "ATGCGATACTTGGTGTGAAT" --RV_primer "GCATATCAATAAGCGGAGGA" --custom_config /path/to/custom/config
+```
 
 ## Contact Us
 
