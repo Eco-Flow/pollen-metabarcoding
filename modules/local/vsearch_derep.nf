@@ -31,9 +31,6 @@ process VSEARCH_DEREP_FULL_LENGTH {
         --uc ${prefix}.derep.uc \\
         --output ${prefix}.derep.fasta 2>&1 | tee ${prefix}.derep.log
 
-    md5sum "${prefix}.derep.fasta" > "${prefix}.derep.fasta.md5"
-    md5sum "${prefix}.derep.uc" > "${prefix}.derep.uc.md5"
-
     cat <<-END_VERSIONS > versions.yml
 
     "${task.process}":

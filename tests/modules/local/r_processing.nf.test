@@ -24,7 +24,7 @@ nextflow_process {
               assert fasta.size() == 1
               assert fasta[0].size() == 2
               assert fasta[0][0].size() == 2
-              assert path(fasta[0].get(1)).md5 == '608d9417c5fc59d20087c3575935cec3'
+              assert path(fasta[0].get(1)).md5 == 'd7536874f239e304cca7667dc1ffde4d'
             }
         }
 

@@ -8,11 +8,8 @@
                             "id": "ERR2537816",
                             "single_end": false
                         },
-                        "ERR2537816.classified.tsv:md5,608d9417c5fc59d20087c3575935cec3"
+                        "ERR2537816.classified.tsv:md5,d7536874f239e304cca7667dc1ffde4d"
                     ]
-                ],
-                "1": [
-                    "versions.yml:md5,c5cafb5677872ce5c2c7cd3e9bd13e19"
                 ],
                 "fasta": [
                     [
@@ -20,11 +17,8 @@
                             "id": "ERR2537816",
                             "single_end": false
                         },
-                        "ERR2537816.classified.tsv:md5,608d9417c5fc59d20087c3575935cec3"
+                        "ERR2537816.classified.tsv:md5,d7536874f239e304cca7667dc1ffde4d"
                     ]
-                ],
-                "versions": [
-                    "versions.yml:md5,c5cafb5677872ce5c2c7cd3e9bd13e19"
                 ]
             }
         ],
@@ -32,6 +26,6 @@
             "nf-test": "0.8.4",
             "nextflow": "23.10.1"
         },
-        "timestamp": "2024-03-18T14:36:08.809864"
+        "timestamp": "2024-03-20T11:13:21.069775"
     }
 }

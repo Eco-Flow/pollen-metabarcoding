@@ -27,8 +27,6 @@ process VSEARCH_FASTQ_FILTER {
         $args \\
         --fastaout ${prefix}.filtered.fasta 2>&1 | tee ${prefix}.filtered.log
 
-    md5sum "${prefix}.filtered.fasta" > "${prefix}.filtered.fasta.md5"
-
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
         vsearch: \$(vsearch --version 2>&1 | head -n 1 | sed 's/vsearch //g' | sed 's/,.*//g' | sed 's/^v//' | sed 's/_.*//')
