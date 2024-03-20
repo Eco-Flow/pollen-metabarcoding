@@ -17,20 +17,6 @@ log.info """\
 
  =========================================""".stripIndent()
 
-def helpMessage() {
-    log.info"""
-    You have asked for the help message.
-    """.stripIndent()
-}
-
-def errorMessage() {
-    log.info"""
-    You failed to provide the --input and/or --database parameters.
-    The pipeline has exited with error status 1.
-    """.stripIndent()
-    exit 1
-}
-
 include { PEAR } from './modules/nf-core/pear/main'
 include { CUTADAPT } from './modules/nf-core/cutadapt/main'
 include { VSEARCH_FASTQ_FILTER } from './modules/local/vsearch_fastq_filter.nf'
@@ -38,19 +24,15 @@ include { VSEARCH_DEREP_FULL_LENGTH } from './modules/local/vsearch_derep.nf'
 include { VSEARCH_SINTAX } from './modules/nf-core/vsearch/sintax/main'
 include { R_PROCESSING } from './modules/local/r_processing.nf'
 include { PROCESSING } from './modules/local/processing.nf'
-include { validateParameters; paramsHelp; paramsSummaryLog; fromSamplesheet } from 'plugin/nf-validation'
+include { validateParameters; paramsHelp; paramsSummaryLog } from 'plugin/nf-validation'
 include { CUSTOM_DUMPSOFTWAREVERSIONS } from './modules/nf-core/custom/dumpsoftwareversions/main'
 
 workflow {
 
   if (params.help) {
-    helpMessage()
+    log.info paramsHelp("nextflow run main.nf --input input_file.csv --database database.fa")
     exit 0
   }
-
-  //Ensuring mandatory parameters are provided
-  ch_sample_list = params.input != null ? Channel.fromPath(params.input) : errorMessage()
-  ch_database = params.database != null ? Channel.fromPath(params.database) : errorMessage()
 
   // Validate input parameters
   validateParameters()
