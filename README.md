@@ -138,6 +138,9 @@ Module specific configuration using process names can be found in `conf/modules.
 
 **Please note:** The nf-core `CUTADAPT` module is labelled as `process_medium` in the module `main.nf`. However for pollen metabarcoding data the fastqs are significantly smaller, so this resource requirement has been overwritten inside `conf/modules.config` to match the `process_single` resource requirments.
 
+## Test Data 
+The data used to test this pipeline and used in the `test` profile can be accessed via the [ENA ID: PRJEB26439](http://www.ebi.ac.uk/ena/data/view/PRJEB26439).
+
 ## Contact Us
 
 If you need any support do not hesitate to contact us at any of:
