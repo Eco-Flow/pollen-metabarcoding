@@ -30,7 +30,7 @@ include { CUSTOM_DUMPSOFTWAREVERSIONS } from './modules/nf-core/custom/dumpsoftw
 workflow {
 
   if (params.help) {
-    log.info paramsHelp("nextflow run main.nf --input input_file.csv --database database.fa")
+    log.info paramsHelp("nextflow run main.nf --input input_file.csv --database database.fa --FW_primer FOWARD-PRIMER-STRING --RV_primer REVERSE-PRIMER-STRING")
     exit 0
   }
 
