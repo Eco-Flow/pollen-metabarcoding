@@ -131,6 +131,13 @@ nextflow run main.nf -profile apptainer,local -resume --input data/input-s3.csv 
 nextflow run main.nf -profile docker,aws_batch -resume --input data/input-s3.csv --database "s3://pollen-metabarcoding-test-data/data/viridiplantae_all_2014.sintax.fa" --FW_primer "ATGCGATACTTGGTGTGAAT" --RV_primer "GCATATCAATAAGCGGAGGA" --custom_config /path/to/custom/config
 ```
 
+## Configuration
+The basic configuration of processes using labels can be found in `conf/base.config`.
+
+Module specific configuration using process names can be found in `conf/modules.config`.
+
+**Please note:** The nf-core `CUTADAPT` module is labelled as `process_medium` in the module `main.nf`. However for pollen metabarcoding data the fastqs are significantly smaller, so this resource requirement has been overwritten inside `conf/modules.config` to match the `process_single` resource requirments.
+
 ## Contact Us
 
 If you need any support do not hesitate to contact us at any of:
