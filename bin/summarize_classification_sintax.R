@@ -41,7 +41,7 @@ g$X2 <- as.numeric(as.character(g$X2))
 
 s <- data.frame(do.call('rbind', strsplit(gsub(")", "",classif$X7),'(',fixed=TRUE)))
 s$X1 <- gsub("s:", "", s$X1)
-s$X2 <- as.numeric(as.character(g$X2))
+s$X2 <- as.numeric(as.character(s$X2))
 
 classif <- cbind(id, k, p, c, o, f, g, s, size)
 colnames(classif)[c(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16)] <- c("sample", "kingdom", "prob_kingdom", "division", "prob_division", "clade", "prob_clade", "order", "prob_order", "family", "prob_family", "genus", "prob_genus", "species", "prob_species", "size")
