@@ -112,7 +112,7 @@ nextflow run main.nf -profile docker,local -resume --input data/input-s3.csv --d
 
 * Running the pipeline with Singularity and test profiles:
 ```
-nextflow run main.nf -profile singularity,test -resume --input data/input-s3.csv --database "s3://pollen-metabarcoding-test-data/data/viridiplantae_all_2014.sintax.fa" --FW_primer "ATGCGATACTTGGTGTGAAT" --RV_primer "GCATATCAATAAGCGGAGGA"
+nextflow run main.nf -profile singularity,test -resume
 ```
 
 * Running the pipeline with additional parameters:
