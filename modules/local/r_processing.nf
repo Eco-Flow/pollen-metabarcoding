@@ -13,6 +13,7 @@ process R_PROCESSING {
 
     output:
     tuple val(meta), path('*.classified.tsv')   , emit: fasta
+    tuple val(meta), path('*.pdf')   , emit: pie
 
     script:
     """
@@ -62,5 +63,26 @@ process R_PROCESSING {
     colnames(classif)[c(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16)] <- c("sample", "kingdom", "prob_kingdom", "division", "prob_division", "clade", "prob_clade", "order", "prob_order", "family", "prob_family", "genus", "prob_genus", "species", "prob_species", "size")
 
     write.table(classif, file=paste("${meta.id}", ".classified.tsv", sep=""), quote=FALSE, sep='\t', row.names = FALSE)
+
+    #Plot some wee pie charts (by order, family or genus)
+    classif\$Factor <- factor(classif\$order)
+    sorted<-as.data.frame(sort (table (classif\$Factor)))
+    pdf ("${meta.id}.order.pdf", width=6, height=6)
+    pie(sorted\$Freq, sorted\$Var1, main = c("Order (n= ", nrow(sorted) ," different entries"))
+    dev.off()
+
+    classif\$Factor <- factor(classif\$family)
+    sorted<-as.data.frame(sort (table (classif\$Factor)))
+    pdf ("${meta.id}.family.pdf", width=6, height=6)
+    pie(sorted\$Freq, sorted\$Var1, main = c("Family (n= ", nrow(sorted) ," different entries"))
+    dev.off()
+
+    classif\$Factor <- factor(classif\$genus)
+    sorted<-as.data.frame(sort (table (classif\$Factor)))
+    pdf ("${meta.id}.genus.pdf", width=6, height=6)
+    pie(sorted\$Freq, sorted\$Var1, main = c("Genus (n= ", nrow(sorted) ," different entries")   )
+    dev.off()
+
+
     """
 }
