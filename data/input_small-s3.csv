@@ -1,0 +1,3 @@
+ERR2537811,s3://pollen-metabarcoding-test-data/data/ERR2537811_1.fastq.gz,s3://pollen-metabarcoding-test-data/data/ERR2537811_2.fastq.gz
+ERR2537812,s3://pollen-metabarcoding-test-data/data/ERR2537812_1.fastq.gz,s3://pollen-metabarcoding-test-data/data/ERR2537812_2.fastq.gz
+ERR2537813,s3://pollen-metabarcoding-test-data/data/ERR2537813_1.fastq.gz,s3://pollen-metabarcoding-test-data/data/ERR2537813_2.fastq.gz
