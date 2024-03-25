@@ -23,7 +23,6 @@ include { VSEARCH_FASTQ_FILTER } from './modules/local/vsearch_fastq_filter.nf'
 include { VSEARCH_DEREP_FULL_LENGTH } from './modules/local/vsearch_derep.nf'
 include { VSEARCH_SINTAX } from './modules/nf-core/vsearch/sintax/main'
 include { R_PROCESSING } from './modules/local/r_processing.nf'
-include { PROCESSING } from './modules/local/processing.nf'
 include { validateParameters; paramsHelp; paramsSummaryLog } from 'plugin/nf-validation'
 include { CUSTOM_DUMPSOFTWAREVERSIONS } from './modules/nf-core/custom/dumpsoftwareversions/main'
 
@@ -67,13 +66,7 @@ workflow {
   VSEARCH_SINTAX(ch_sintax.fa, ch_sintax.db)
   ch_versions = ch_versions.mix(VSEARCH_SINTAX.out.versions.first())
 
-  //Original scripts used R for wrangling the sintax output, same can be done with a single line of bash code so made the R script an optional module
-  if (params.r_processing == true) {
-    R_PROCESSING(VSEARCH_SINTAX.out.tsv)
-  }
-  else {
-    PROCESSING(VSEARCH_SINTAX.out.tsv)
-  }
+  R_PROCESSING(VSEARCH_SINTAX.out.tsv)
 
   CUSTOM_DUMPSOFTWAREVERSIONS (
         ch_versions.collectFile(name: 'collated_versions.yml')

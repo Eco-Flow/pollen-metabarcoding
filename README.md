@@ -37,8 +37,8 @@ This will produce a directory in the current directory called `synteny-VERSION` 
 * `--single_end` - Tells pipeline whether to expect single end or paired-end data **[default: false]**.
 * `--custom_config` - A path/url to a custom configuration file.
 * `--publish_dir_mode` - Method used to save pipeline results to output directory. (accepted: symlink, rellink, link, copy, copyNoFollow, move) **[default: copy]**. 
-* `--r_processing` - Flag to specify whether bash or r should manipulate sintax csv **[default: false]**.
 * `--clean` - Enable cleanup function **[default: true]**.
+* `--forks` - Maximum number of each process that will be run in parallel.
 * `--max_cpus` - Maximum number of CPUs that can be requested for any single job **[default: 16]**.
 * `--max_memory` - Maximum amount of memory that can be requested for any single job **[default: 128.GB]**.
 * `--max_time` - Maximum amount of time that can be requested for any single job **[default: 48.h]**.
@@ -64,7 +64,7 @@ This will produce a directory in the current directory called `synteny-VERSION` 
 * `--fastq_minlen` - vsearch fastq min length parameter.
 * `--fastq_maxns` - vsearch max Ns parameter.
 * `--fasta_width` - vsearch fasta width parameter.
-* `--minuniquesize` - vsearch min unique size parameter.
+* `--minuniquesize` - vsearch min unique size parameter **[default: 2]**.
 * `--derep_strand` - vsearch fastq dereplicate strand parameter.
 * `--sizeout` - vsearch fasta abundance annotations parameter.
 * `--sintax_cutoff` - vsearch sintax cutoff parameter.
@@ -173,19 +173,19 @@ If you want to run this pipeline on your institute's on-premise HPC or specific 
 
 * Running the pipeline with local and Docker profiles:
 ```
-nextflow run main.nf -profile docker,local -resume --input data/input-s3.csv --database "s3://pollen-metabarcoding-test-data/data/viridiplantae_all_2014.sintax.fa" --FW_primer "ATGCGATACTTGGTGTGAAT" --RV_primer "GCATATCAATAAGCGGAGGA"
+nextflow run main.nf -profile docker,local -resume --input data/input_full-s3.csv --database "s3://pollen-metabarcoding-test-data/data/viridiplantae_all_2014.sintax.fa" --FW_primer "ATGCGATACTTGGTGTGAAT" --RV_primer "GCATATCAATAAGCGGAGGA"
 ```
 
 (The example database was obtained from [molbiodiv/meta-barcoding-dual-indexing](https://github.com/molbiodiv/meta-barcoding-dual-indexing/blob/master/precomputed/viridiplantae_all_2014.sintax.fa)).
 
 * Running the pipeline with Singularity and test profiles:
 ```
-nextflow run main.nf -profile singularity,test -resume
+nextflow run main.nf -profile singularity,test_small -resume
 ```
 
 * Running the pipeline with additional parameters:
 ```
-nextflow run main.nf -profile apptainer,local -resume --input data/input-s3.csv \
+nextflow run main.nf -profile apptainer,local -resume --input data/input_full-s3.csv \
    --database "s3://pollen-metabarcoding-test-data/data/viridiplantae_all_2014.sintax.fa" \
    --FW_primer "ATGCGATACTTGGTGTGAAT" --RV_primer "GCATATCAATAAGCGGAGGA" \
    --clean false --single_end false --retain_untrimmed true \
@@ -196,7 +196,7 @@ nextflow run main.nf -profile apptainer,local -resume --input data/input-s3.csv 
 
 * Running the pipeline with a custom config file:
 ```
-nextflow run main.nf -profile docker,aws_batch -resume --input data/input-s3.csv --database "s3://pollen-metabarcoding-test-data/data/viridiplantae_all_2014.sintax.fa" --FW_primer "ATGCGATACTTGGTGTGAAT" --RV_primer "GCATATCAATAAGCGGAGGA" --custom_config /path/to/custom/config
+nextflow run main.nf -profile docker,aws_batch -resume --input data/input_full-s3.csv --database "s3://pollen-metabarcoding-test-data/data/viridiplantae_all_2014.sintax.fa" --FW_primer "ATGCGATACTTGGTGTGAAT" --RV_primer "GCATATCAATAAGCGGAGGA" --custom_config /path/to/custom/config
 ```
 
 ## Test Data 
