@@ -68,19 +68,19 @@ process R_PROCESSING {
     classif\$Factor <- factor(classif\$order)
     sorted<-as.data.frame(sort (table (classif\$Factor)))
     pdf ("${meta.id}.order.pdf", width=6, height=6)
-    pie(sorted\$Freq, sorted\$Var1, main = c("Order (n= ", nrow(sorted) ," different entries"))
+    pie(sorted\$Freq, sorted\$Var1, main = c("Order (n=",nrow(sorted)," different entries"))
     dev.off()
 
     classif\$Factor <- factor(classif\$family)
     sorted<-as.data.frame(sort (table (classif\$Factor)))
     pdf ("${meta.id}.family.pdf", width=6, height=6)
-    pie(sorted\$Freq, sorted\$Var1, main = c("Family (n= ", nrow(sorted) ," different entries"))
+    pie(sorted\$Freq, sorted\$Var1, main = c("Family (n=",nrow(sorted)," different entries"))
     dev.off()
 
     classif\$Factor <- factor(classif\$genus)
     sorted<-as.data.frame(sort (table (classif\$Factor)))
     pdf ("${meta.id}.genus.pdf", width=6, height=6)
-    pie(sorted\$Freq, sorted\$Var1, main = c("Genus (n= ", nrow(sorted) ," different entries")   )
+    pie(sorted\$Freq, sorted\$Var1, main = c("Genus (n=",nrow(sorted)," different entries"))
     dev.off()
 
 
