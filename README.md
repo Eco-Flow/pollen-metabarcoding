@@ -200,7 +200,10 @@ nextflow run main.nf -profile docker,aws_batch -resume --input data/input_full-s
 ```
 
 ## Test Data 
-The data used to test this pipeline and used in the `test` profile can be accessed via the [ENA ID: PRJEB26439](http://www.ebi.ac.uk/ena/data/view/PRJEB26439).
+The data used to test this pipeline via the [ENA ID: PRJEB26439](http://www.ebi.ac.uk/ena/data/view/PRJEB26439).
+There are two test profiles using this data:
+`test_small` - contains 3 samples for small, fast testing.
+`test_full` - contains 47 samples (the entire dataset) for large, real-world replication testing.
 
 ## Contact Us
 
