@@ -2,7 +2,7 @@ process R_PROCESSING {
     tag "${meta.id}"
     label 'process_low'
 
-    container = 'ecoflowucl/rocker-r_base:r-base-4.3.3'
+    container = 'ecoflowucl/rocker-r_base:r-4.3.3_dplyr-1.1.4'
 
     input:
     tuple val(meta), path(sintax_tsv)
@@ -65,22 +65,33 @@ process R_PROCESSING {
     write.table(classif, file=paste("${meta.id}", ".classified.tsv", sep=""), quote=FALSE, sep='\t', row.names = FALSE)
 
     #Plot some wee pie charts (by order, family or genus)
-    classif\$Factor <- factor(classif\$order)
-    sorted<-as.data.frame(sort (table (classif\$Factor)))
+    og_tab <- classif
+
+    sums <- aggregate(size~order,og_tab,sum) 
+    sums <- sums[order(sums\$size, decreasing = TRUE),] 
+    top10 <- head(sums\$order, n = 10) 
+    sums <- sums %>% mutate(legend_value = case_when(order %in% top10 ~ order, !(order %in% top10) ~ "OTHER" )) 
+    pie_table <- aggregate(size~legend_value,sums,sum)
     pdf ("${meta.id}.order.pdf", width=6, height=6)
-    pie(sorted\$Freq, sorted\$Var1, main = c("Order (n=",nrow(sorted)," different entries"))
+    pie(pie_table\$size, pie_table\$legend_value)
     dev.off()
 
-    classif\$Factor <- factor(classif\$family)
-    sorted<-as.data.frame(sort (table (classif\$Factor)))
+    sums <- aggregate(size~family,og_tab,sum) 
+    sums <- sums[order(sums\$size, decreasing = TRUE),] 
+    top10 <- head(sums\$family, n = 10) 
+    sums <- sums %>% mutate(legend_value = case_when(family %in% top10 ~ family, !(family %in% top10) ~ "OTHER" )) 
+    pie_table <- aggregate(size~legend_value,sums,sum)
     pdf ("${meta.id}.family.pdf", width=6, height=6)
-    pie(sorted\$Freq, sorted\$Var1, main = c("Family (n=",nrow(sorted)," different entries"))
+    pie(pie_table\$size, pie_table\$legend_value)
     dev.off()
 
-    classif\$Factor <- factor(classif\$genus)
-    sorted<-as.data.frame(sort (table (classif\$Factor)))
+    sums <- aggregate(size~genus,og_tab,sum) 
+    sums <- sums[order(sums\$size, decreasing = TRUE),] 
+    top10 <- head(sums\$genus, n = 10) 
+    sums <- sums %>% mutate(legend_value = case_when(genus %in% top10 ~ genus, !(genus %in% top10) ~ "OTHER" )) 
+    pie_table <- aggregate(size~legend_value,sums,sum)
     pdf ("${meta.id}.genus.pdf", width=6, height=6)
-    pie(sorted\$Freq, sorted\$Var1, main = c("Genus (n=",nrow(sorted)," different entries"))
+    pie(pie_table\$size, pie_table\$legend_value)
     dev.off()
 
 
