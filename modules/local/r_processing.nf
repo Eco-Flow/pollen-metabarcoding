@@ -2,7 +2,7 @@ process R_PROCESSING {
     tag "${meta.id}"
     label 'process_low'
 
-    container = 'ecoflowucl/rocker-r_base:r-base-4.3.3'
+    container = 'ecoflowucl/rocker-r_base:r-4.3.3_dplyr-1.1.4'
 
     input:
     tuple val(meta), path(sintax_tsv)
