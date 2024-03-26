@@ -65,33 +65,38 @@ process R_PROCESSING {
     write.table(classif, file=paste("${meta.id}", ".classified.tsv", sep=""), quote=FALSE, sep='\t', row.names = FALSE)
 
     #Plot some wee pie charts (by order, family or genus)
-    og_tab <- classif
 
-    sums <- aggregate(size~order,og_tab,sum) 
-    sums <- sums[order(sums\$size, decreasing = TRUE),] 
-    top10 <- head(sums\$order, n = 10) 
-    sums <- sums %>% mutate(legend_value = case_when(order %in% top10 ~ order, !(order %in% top10) ~ "OTHER" )) 
+    sums <- aggregate(size~order,classif,sum)
+    sums <- sums[order(sums\$size, decreasing = TRUE),]
+    sums <- sums %>% mutate(perc = size/sum(size))
+    cutoff <- sum(sums\$perc > 0.03)
+    top_val <- head(sums\$order, n = cutoff)
+    sums <- sums %>% mutate(legend_value = case_when(order %in% top_val ~ order, !(order %in% top_val) ~ "OTHER" ))
     pie_table <- aggregate(size~legend_value,sums,sum)
     pdf ("${meta.id}.order.pdf", width=6, height=6)
-    pie(pie_table\$size, pie_table\$legend_value)
+    pie(pie_table\$size, pie_table\$legend_value, clockwise = T)
     dev.off()
 
-    sums <- aggregate(size~family,og_tab,sum) 
-    sums <- sums[order(sums\$size, decreasing = TRUE),] 
-    top10 <- head(sums\$family, n = 10) 
-    sums <- sums %>% mutate(legend_value = case_when(family %in% top10 ~ family, !(family %in% top10) ~ "OTHER" )) 
+    sums <- aggregate(size~family,classif,sum)
+    sums <- sums[order(sums\$size, decreasing = TRUE),]
+    sums <- sums %>% mutate(perc = size/sum(size))
+    cutoff <- sum(sums\$perc > 0.03)
+    top_val <- head(sums\$family, n = cutoff)
+    sums <- sums %>% mutate(legend_value = case_when(family %in% top_val ~ family, !(family %in% top_val) ~ "OTHER" ))
     pie_table <- aggregate(size~legend_value,sums,sum)
     pdf ("${meta.id}.family.pdf", width=6, height=6)
-    pie(pie_table\$size, pie_table\$legend_value)
+    pie(pie_table\$size, pie_table\$legend_value, clockwise = T)
     dev.off()
 
-    sums <- aggregate(size~genus,og_tab,sum) 
-    sums <- sums[order(sums\$size, decreasing = TRUE),] 
-    top10 <- head(sums\$genus, n = 10) 
-    sums <- sums %>% mutate(legend_value = case_when(genus %in% top10 ~ genus, !(genus %in% top10) ~ "OTHER" )) 
+    sums <- aggregate(size~genus,classif,sum)
+    sums <- sums[order(sums\$size, decreasing = TRUE),]
+    sums <- sums %>% mutate(perc = size/sum(size))
+    cutoff <- sum(sums\$perc > 0.03)
+    top_val <- head(sums\$genus, n = cutoff)
+    sums <- sums %>% mutate(legend_value = case_when(genus %in% top_val ~ genus, !(genus %in% top_val) ~ "OTHER" ))
     pie_table <- aggregate(size~legend_value,sums,sum)
     pdf ("${meta.id}.genus.pdf", width=6, height=6)
-    pie(pie_table\$size, pie_table\$legend_value)
+    pie(pie_table\$size, pie_table\$legend_value, clockwise = T)
     dev.off()
 
 
