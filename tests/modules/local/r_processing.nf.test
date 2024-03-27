@@ -9,6 +9,7 @@ nextflow_process {
         when {
             params {
                 clean = false
+                outdir = "results"
             }
             process {
                 """
@@ -19,13 +20,35 @@ nextflow_process {
 
         then {
             assert process.success
-            assert snapshot(process.out).match()
-            with(process.out) {
-              assert fasta.size() == 1
-              assert fasta[0].size() == 2
-              assert fasta[0][0].size() == 2
-              assert path(fasta[0].get(1)).md5 == 'd7536874f239e304cca7667dc1ffde4d'
+            with (process.out.classification) {
+              assert size() == 1
+              with(get(0)) {
+                    assert get(0) == [ "id": "ERR2537816", "single_end": false ]
+                    assert get(1) ==~ ".*/ERR2537816.classified.tsv"
+              }
             }
+            with (process.out.pie) {
+              assert size() == 1
+              with(get(0)) {
+                    assert get(0) == [ "id": "ERR2537816", "single_end": false ]
+                    with(get(1)) {
+                          assert get(0) ==~ ".*/ERR2537816.family.pdf"
+                          assert get(1) ==~ ".*/ERR2537816.genus.pdf"
+                          assert get(2) ==~ ".*/ERR2537816.order.pdf"
+                    }
+              }
+            }
+            with (process.out.summary_table) {
+              assert size() == 1
+              with(get(0)) {
+                    assert get(0) == [ "id": "ERR2537816", "single_end": false ]
+                    assert get(1) ==~ ".*/summary.tsv"
+              }
+            }
+            assert snapshot(
+              path("${launchDir}/${params.outdir}/r-processing/ERR2537816/ERR2537816.classified.tsv"),
+              path("${launchDir}/${params.outdir}/r-processing/ERR2537816/summary.tsv")
+            ).match("r_processing")
         }
 
     }

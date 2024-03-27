@@ -64,48 +64,31 @@ process R_PROCESSING {
     colnames(classif)[c(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16)] <- c("sample", "kingdom", "prob_kingdom", "division", "prob_division", "clade", "prob_clade", "order", "prob_order", "family", "prob_family", "genus", "prob_genus", "species", "prob_species", "size")
 
     write.table(classif, file=paste("${meta.id}", ".classified.tsv", sep=""), quote=FALSE, sep='\t', row.names = FALSE)
+
+    #Function for making pie charts
+    pie_plots <- function(r){
+      sums <- aggregate(size ~ classif[[r]], classif, sum)
+      colnames(sums) <- c("tax", "size")
+      sums <- sums[order(sums\$size, decreasing = TRUE),]
+      sums <- sums %>% mutate(perc = size/sum(size))
+      cutoff <- sum(sums\$perc > 0.03)
+      top_val <- head(sums\$tax, n = cutoff)
+      sums <- sums %>% mutate(legend_value = case_when(tax %in% top_val ~ tax, !(tax %in% top_val) ~ "OTHER" ))
+      pie_table <- aggregate(size~legend_value,sums,sum)
+      pdf (paste("${meta.id}", ".", r, ".pdf", sep = ""), width=6, height=6)
+      pie(pie_table\$size, pie_table\$legend_value, clockwise = T)
+      dev.off()
+    }
+
+    #Make pie charts for order, family and genus
+    for (tax in c("family", "order", "genus")) {
+      pie_plots(tax)
+    }
+
+    #Generate summary stats
+    total_mapped_reads <- sum(aggregate(size~genus, classif, sum)[2]) #just need total so does not matter which column used
     unique_samples= nrow(classif)
-
-    #Plot some wee pie charts (by order, family or genus)
-
-    sums <- aggregate(size~order,classif,sum)
-    total_mapped_reads <- sum(sums\$size)
-    sums <- sums[order(sums\$size, decreasing = TRUE),]
-    sums <- sums %>% mutate(perc = size/sum(size))
-    cutoff <- sum(sums\$perc > 0.03)
-    top_val <- head(sums\$order, n = cutoff)
-    sums <- sums %>% mutate(legend_value = case_when(order %in% top_val ~ order, !(order %in% top_val) ~ "OTHER" ))
-    pie_table <- aggregate(size~legend_value,sums,sum)
-    pdf ("${meta.id}.order.pdf", width=6, height=6)
-    pie(pie_table\$size, pie_table\$legend_value, clockwise = T)
-    dev.off()
-
-    sums <- aggregate(size~family,classif,sum)
-    sums <- sums[order(sums\$size, decreasing = TRUE),]
-    sums <- sums %>% mutate(perc = size/sum(size))
-    cutoff <- sum(sums\$perc > 0.03)
-    top_val <- head(sums\$family, n = cutoff)
-    sums <- sums %>% mutate(legend_value = case_when(family %in% top_val ~ family, !(family %in% top_val) ~ "OTHER" ))
-    pie_table <- aggregate(size~legend_value,sums,sum)
-    pdf ("${meta.id}.family.pdf", width=6, height=6)
-    pie(pie_table\$size, pie_table\$legend_value, clockwise = T)
-    dev.off()
-
-    sums <- aggregate(size~genus,classif,sum)
-    sums <- sums[order(sums\$size, decreasing = TRUE),]
-    sums <- sums %>% mutate(perc = size/sum(size))
-    cutoff <- sum(sums\$perc > 0.03)
-    top_val <- head(sums\$genus, n = cutoff)
-    sums <- sums %>% mutate(legend_value = case_when(genus %in% top_val ~ genus, !(genus %in% top_val) ~ "OTHER" ))
-    pie_table <- aggregate(size~legend_value,sums,sum)
-    pdf ("${meta.id}.genus.pdf", width=6, height=6)
-    pie(pie_table\$size, pie_table\$legend_value, clockwise = T)
-    dev.off()
-
-    #Write summary file
     output <- cbind(unique_samples, total_mapped_reads)
-    rownames(output)<-"${meta.id}"
-    print (output)
     write.table(output,"summary.tsv", quote=F, sep="\t")
     """
 }
