@@ -10,7 +10,7 @@
       "type": "object",
       "fa_icon": "fas fa-terminal",
       "description": "Define where the pipeline should find input data and save output data.",
-      "required": ["input", "database", "FW_primer", "RV_primer", "outdir"],
+      "required": ["input", "outdir", "database", "FW_primer", "RV_primer"],
       "properties": {
         "input": {
           "type": "string",
@@ -137,7 +137,8 @@
         },
         "minuniquesize": {
           "type": "integer",
-          "description": "vsearch min unique size parameter."
+          "description": "vsearch min unique size parameter.",
+          "default": 2
         },
         "derep_strand": {
           "type": "string",
@@ -186,9 +187,9 @@
           "fa_icon": "fas fa-copy",
           "enum": ["symlink", "rellink", "link", "copy", "copyNoFollow", "move"]
         },
-        "r_processing": {
-          "type": "boolean",
-          "description": "Parameter flag to specify whether bash or r should manipulate sintax csv."
+        "forks": {
+          "type": "number",
+          "description": "Maximum number of each process that will be run in parallel."
         }
       }
     },

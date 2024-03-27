@@ -37,8 +37,8 @@ This will produce a directory in the current directory called `synteny-VERSION` 
 * `--single_end` - Tells pipeline whether to expect single end or paired-end data **[default: false]**.
 * `--custom_config` - A path/url to a custom configuration file.
 * `--publish_dir_mode` - Method used to save pipeline results to output directory. (accepted: symlink, rellink, link, copy, copyNoFollow, move) **[default: copy]**. 
-* `--r_processing` - Flag to specify whether bash or r should manipulate sintax csv **[default: false]**.
 * `--clean` - Enable cleanup function **[default: true]**.
+* `--forks` - Maximum number of each process that will be run in parallel.
 * `--max_cpus` - Maximum number of CPUs that can be requested for any single job **[default: 16]**.
 * `--max_memory` - Maximum amount of memory that can be requested for any single job **[default: 128.GB]**.
 * `--max_time` - Maximum amount of time that can be requested for any single job **[default: 48.h]**.
@@ -64,7 +64,7 @@ This will produce a directory in the current directory called `synteny-VERSION` 
 * `--fastq_minlen` - vsearch fastq min length parameter.
 * `--fastq_maxns` - vsearch max Ns parameter.
 * `--fasta_width` - vsearch fasta width parameter.
-* `--minuniquesize` - vsearch min unique size parameter.
+* `--minuniquesize` - vsearch min unique size parameter **[default: 2]**.
 * `--derep_strand` - vsearch fastq dereplicate strand parameter.
 * `--sizeout` - vsearch fasta abundance annotations parameter.
 * `--sintax_cutoff` - vsearch sintax cutoff parameter.
@@ -77,11 +77,79 @@ This will produce a directory in the current directory called `synteny-VERSION` 
 * `--awscli` - path to aws cli installation on host instance.
 * `--s3bucket` - s3 bucket path to use as work directory.
 
-## Profiles
+## Results
+
+Once completed, your output directory should be called results (unless you specified another name) and should contain the following directory structure:
+
+```
+results
+├── cutadapt
+│   ├── fastqs
+│   └── logs
+├── pear
+│   ├── assembled
+│   ├── discarded
+│   └── unassembled
+├── pipeline_info
+│   ├── co2_emissions
+│   │   ├── co2footprint_report.html
+│   │   ├── co2footprint_summary.html
+│   │   └── co2footprint_trace.txt
+│   ├── execution_report.html
+│   ├── execution_timeline.html
+│   ├── execution_trace.txt
+│   ├── pipeline_dag.html
+│   └── software_versions.yml
+├── r-processing
+└── vsearch
+    ├── derep
+    │   ├── clusterings
+    │   ├── fastas
+    │   └── logs
+    ├── fastq_filter
+    │   ├── fastas
+    │   └── logs
+    └── sintax
+```
+
+`cutadapt`
+1. `fastqs` - directory containing adapter trimmed fastqs files for each sample.
+2. `logs` - directory containing cutadapt trimming statistics for each sample.
+
+`pear`
+1. `assembled` - directory containing fastqs of successfully merged reads for each sample.
+2. `discarded` - directory containing fastqs of reads disacrded due to quality for each sample.
+3. `unassembled` - directory containing fastqs of reads unable to be merged for each sample.
+
+`pipeline_info` - directory containing pipeline statistics including co2 emissions.
+
+`r-processing` - directory containing taxonomy prediction information for each sample.
+
+`vsearch`
+1. `derep`
+  - `clusterings` - directory containing dereplicated clusterings for each sample.
+  - `fastas` - directory containing dereplicated fastas for each sample.
+  - `logs` - directory containing vsearch dereplicate statistics for each sample.
+2. `fastq_filter`
+  - `fastas` - directory containing filtered fastas for each sample.
+  - logs` - directory containing vsearch fastq_filter statistics for each sample.
+3. `sintax` - directory containing vsearch sintax taxonomy prediction output files.
+
+## Configuration
+
+### Basics
+
+The basic configuration of processes using labels can be found in `conf/base.config`.
+
+Module specific configuration using process names can be found in `conf/modules.config`.
+
+**Please note:** The nf-core `CUTADAPT` module is labelled as `process_medium` in the module `main.nf`. However for pollen metabarcoding data the fastqs are significantly smaller, so this resource requirement has been overwritten inside `conf/modules.config` to match the `process_single` resource requirments.
+
+### Profiles
 
 This pipeline is designed to run in various modes that can be supplied as a comma separated list i.e. `-profile profile1,profile2`.
 
-### Container Profiles
+#### Container Profiles
 
 Please select one of the following profiles when running the pipeline.
 
@@ -89,13 +157,13 @@ Please select one of the following profiles when running the pipeline.
 * `singularity` - This profile uses the container software Singularity when running the pipeline. This container software does not require root permissions so is used when running on on-premise HPCs or you local machine (depending on permissions). **Please Note:** You must have Singularity installed to use this profile.
 * `apptainer` - This profile uses the container software Apptainer when running the pipeline. This container software does not require root permissions so is used when running on on-premise HPCs or you local machine (depending on permissions). **Please Note:** You must have Apptainer installed to use this profile.
 
-### Optional Profiles
+#### Optional Profiles
 
 * `local` - This profile is used if you are running the pipeline on your local machine.
 * `aws_batch` - This profile is used if you are running the pipeline on AWS utilising the AWS Batch functionality. **Please Note:** You must use the `Docker` profile with with AWS Batch.
 * `test` - This profile is used if you want to test running the pipeline on your infrastructure. **Please Note:** You do not provide any input parameters if this profile is selected but you still provide a container profile.
 
-## Custom Configuration
+### Custom Configuration
 
 If you want to run this pipeline on your institute's on-premise HPC or specific cloud infrastructure then please contact us and we will help you build and test a custom config file. This config file will be published to our [configs repository](https://github.com/Eco-Flow/configs).
 
@@ -105,19 +173,19 @@ If you want to run this pipeline on your institute's on-premise HPC or specific 
 
 * Running the pipeline with local and Docker profiles:
 ```
-nextflow run main.nf -profile docker,local -resume --input data/input-s3.csv --database "s3://pollen-metabarcoding-test-data/data/viridiplantae_all_2014.sintax.fa" --FW_primer "ATGCGATACTTGGTGTGAAT" --RV_primer "GCATATCAATAAGCGGAGGA"
+nextflow run main.nf -profile docker,local -resume --input data/input_full-s3.csv --database "s3://pollen-metabarcoding-test-data/data/viridiplantae_all_2014.sintax.fa" --FW_primer "ATGCGATACTTGGTGTGAAT" --RV_primer "GCATATCAATAAGCGGAGGA"
 ```
 
 (The example database was obtained from [molbiodiv/meta-barcoding-dual-indexing](https://github.com/molbiodiv/meta-barcoding-dual-indexing/blob/master/precomputed/viridiplantae_all_2014.sintax.fa)).
 
 * Running the pipeline with Singularity and test profiles:
 ```
-nextflow run main.nf -profile singularity,test -resume
+nextflow run main.nf -profile singularity,test_small -resume
 ```
 
 * Running the pipeline with additional parameters:
 ```
-nextflow run main.nf -profile apptainer,local -resume --input data/input-s3.csv \
+nextflow run main.nf -profile apptainer,local -resume --input data/input_full-s3.csv \
    --database "s3://pollen-metabarcoding-test-data/data/viridiplantae_all_2014.sintax.fa" \
    --FW_primer "ATGCGATACTTGGTGTGAAT" --RV_primer "GCATATCAATAAGCGGAGGA" \
    --clean false --single_end false --retain_untrimmed true \
@@ -128,18 +196,14 @@ nextflow run main.nf -profile apptainer,local -resume --input data/input-s3.csv 
 
 * Running the pipeline with a custom config file:
 ```
-nextflow run main.nf -profile docker,aws_batch -resume --input data/input-s3.csv --database "s3://pollen-metabarcoding-test-data/data/viridiplantae_all_2014.sintax.fa" --FW_primer "ATGCGATACTTGGTGTGAAT" --RV_primer "GCATATCAATAAGCGGAGGA" --custom_config /path/to/custom/config
+nextflow run main.nf -profile docker,aws_batch -resume --input data/input_full-s3.csv --database "s3://pollen-metabarcoding-test-data/data/viridiplantae_all_2014.sintax.fa" --FW_primer "ATGCGATACTTGGTGTGAAT" --RV_primer "GCATATCAATAAGCGGAGGA" --custom_config /path/to/custom/config
 ```
 
-## Configuration
-The basic configuration of processes using labels can be found in `conf/base.config`.
-
-Module specific configuration using process names can be found in `conf/modules.config`.
-
-**Please note:** The nf-core `CUTADAPT` module is labelled as `process_medium` in the module `main.nf`. However for pollen metabarcoding data the fastqs are significantly smaller, so this resource requirement has been overwritten inside `conf/modules.config` to match the `process_single` resource requirments.
-
 ## Test Data 
-The data used to test this pipeline and used in the `test` profile can be accessed via the [ENA ID: PRJEB26439](http://www.ebi.ac.uk/ena/data/view/PRJEB26439).
+The data used to test this pipeline via the [ENA ID: PRJEB26439](http://www.ebi.ac.uk/ena/data/view/PRJEB26439).
+There are two test profiles using this data:
+`test_small` - contains 3 samples for small, fast testing.
+`test_full` - contains 47 samples (the entire dataset) for large, real-world replication testing.
 
 ## Contact Us
 
