@@ -12,7 +12,7 @@ process R_PROCESSING {
     sintax_tsv.size() > 0
 
     output:
-    tuple val(meta), path('*.classified.tsv')   , emit: classification
+    path('*.classified.tsv')   , emit: classification
     tuple val(meta), path('*.pdf')   , emit: pie
     tuple val(meta), path('summary.tsv')   , emit: summary_table
 
@@ -67,7 +67,8 @@ process R_PROCESSING {
 
     #Function for making pie charts
     pie_plots <- function(r){
-      sums <- aggregate(size ~ classif[[r]], classif, sum)
+      classif2<-as.data.frame(group_by(classif, paste("prob_", r, sep = "")) %>% filter(paste("prob_", r, sep = "") >= 0.95))
+      sums <- aggregate(size ~ classif[[r]], classif2, sum)
       colnames(sums) <- c("tax", "size")
       sums <- sums[order(sums\$size, decreasing = TRUE),]
       sums <- sums %>% mutate(perc = size/sum(size))
