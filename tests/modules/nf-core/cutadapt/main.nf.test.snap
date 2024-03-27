@@ -1,0 +1,13 @@
+{
+    "cutadapt_fastqs": {
+        "content": [
+            "ERR2537816_1.trim.fastq.gz:md5,f9cb0dd1a4e2c3c871358d4d8dc7e490",
+            "ERR2537816_2.trim.fastq.gz:md5,c8333cd8e2f72a52122edf20ed159421"
+        ],
+        "meta": {
+            "nf-test": "0.8.4",
+            "nextflow": "23.10.1"
+        },
+        "timestamp": "2024-03-27T13:54:45.929629"
+    }
+}

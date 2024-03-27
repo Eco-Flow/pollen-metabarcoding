@@ -11,6 +11,7 @@ nextflow_process {
                 clean = false
                 FW_primer = "ATGCGATACTTGGTGTGAAT"
                 RV_primer = "GCATATCAATAAGCGGAGGA"
+                outdir = "results"
             }
             process {
                 """
@@ -26,9 +27,11 @@ nextflow_process {
               assert reads[0].size() == 2
               assert reads[0][0].size() == 2
               assert reads[0][1].size() == 2
-              assert path(reads[0][1].get(0)).md5 == 'cd2ed3747e5e3280f12a227433c73cae'
-              assert path(reads[0][1].get(1)).md5 == '194a5403ffd5f9506f12bb035fd04448'
             }
+            assert snapshot(
+              path("${launchDir}/${params.outdir}/cutadapt/fastqs/ERR2537816_1.trim.fastq.gz"),
+              path("${launchDir}/${params.outdir}/cutadapt/fastqs/ERR2537816_2.trim.fastq.gz"),
+            ).match("cutadapt_fastqs")
         }
 
     }

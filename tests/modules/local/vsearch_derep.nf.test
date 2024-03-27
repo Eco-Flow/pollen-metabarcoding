@@ -54,8 +54,8 @@ nextflow_process {
             assert process.out.versions.get(0) ==~ ".*/versions.yml"
             //Check the md5sums of the fasta and clustering
             assert snapshot(
-              path("${launchDir}/${params.outdir}/vsearch/derep/ERR2537816.derep.fasta"),
-              path("${launchDir}/${params.outdir}/vsearch/derep/ERR2537816.derep.uc")
+              path("${launchDir}/${params.outdir}/vsearch/derep/fastas/ERR2537816.derep.fasta"),
+              path("${launchDir}/${params.outdir}/vsearch/derep/clusterings/ERR2537816.derep.uc")
             ).match("vsearch_dereplicate") 
         }
     }
