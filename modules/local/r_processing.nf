@@ -89,6 +89,6 @@ process R_PROCESSING {
     total_mapped_reads <- sum(aggregate(size~genus, classif, sum)[2]) #just need total so does not matter which column used
     unique_samples= nrow(classif)
     output <- cbind(unique_samples, total_mapped_reads)
-    write.table(output,"summary.tsv", quote=F, sep="\t")
+    write.table(output,"summary.tsv", quote=F, sep="\t", row.names = FALSE)
     """
 }
