@@ -12,8 +12,9 @@ process R_PROCESSING {
     sintax_tsv.size() > 0
 
     output:
-    tuple val(meta), path('*.classified.tsv')   , emit: fasta
+    tuple val(meta), path('*.classified.tsv')   , emit: classification
     tuple val(meta), path('*.pdf')   , emit: pie
+    tuple val(meta), path('summary.tsv')   , emit: summary_table
 
     script:
     """
@@ -63,10 +64,12 @@ process R_PROCESSING {
     colnames(classif)[c(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16)] <- c("sample", "kingdom", "prob_kingdom", "division", "prob_division", "clade", "prob_clade", "order", "prob_order", "family", "prob_family", "genus", "prob_genus", "species", "prob_species", "size")
 
     write.table(classif, file=paste("${meta.id}", ".classified.tsv", sep=""), quote=FALSE, sep='\t', row.names = FALSE)
+    unique_samples= nrow(classif)
 
     #Plot some wee pie charts (by order, family or genus)
 
     sums <- aggregate(size~order,classif,sum)
+    total_mapped_reads <- sum(sums\$size)
     sums <- sums[order(sums\$size, decreasing = TRUE),]
     sums <- sums %>% mutate(perc = size/sum(size))
     cutoff <- sum(sums\$perc > 0.03)
@@ -99,6 +102,10 @@ process R_PROCESSING {
     pie(pie_table\$size, pie_table\$legend_value, clockwise = T)
     dev.off()
 
-
+    #Write summary file
+    output <- cbind(unique_samples, total_mapped_reads)
+    rownames(output)<-"${meta.id}"
+    print (output)
+    write.table(output,"summary.tsv", quote=F, sep="\t")
     """
 }
