@@ -66,11 +66,17 @@ workflow {
   VSEARCH_SINTAX(ch_sintax.fa, ch_sintax.db)
   ch_versions = ch_versions.mix(VSEARCH_SINTAX.out.versions.first())
 
+  //Original scripts used R for wrangling the sintax output, same can be done with a single line of bash code so made the R script an optional module
   R_PROCESSING(VSEARCH_SINTAX.out.tsv)
 
+  //Idea
+  //SUMMARY(R_PROCESSING.out.classification.collect())
+  // Where it would collect all the classification files and combine them to produce the same pie charts as in R_processing
+
   CUSTOM_DUMPSOFTWAREVERSIONS (
-        ch_versions.collectFile(name: 'collated_versions.yml')
+    ch_versions.collectFile(name: 'collated_versions.yml')
   )
+  
 }
 
 workflow.onComplete {

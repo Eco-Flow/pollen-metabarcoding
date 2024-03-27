@@ -6,7 +6,7 @@ tasks:
       curl -s https://get.nextflow.io | bash
       curl -fsSL https://code.askimed.com/install/nf-test | bash
     command: |
-      export PATH=/workspace/synteny:$PATH
+      export PATH=/workspace/pollen-metabarcoding:$PATH
       nextflow info
       unset JAVA_TOOL_OPTIONS
       echo 'Starting workspace !'
