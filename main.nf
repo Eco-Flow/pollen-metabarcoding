@@ -23,6 +23,7 @@ include { VSEARCH_FASTQ_FILTER } from './modules/local/vsearch_fastq_filter.nf'
 include { VSEARCH_DEREP_FULL_LENGTH } from './modules/local/vsearch_derep.nf'
 include { VSEARCH_SINTAX } from './modules/nf-core/vsearch/sintax/main'
 include { R_PROCESSING } from './modules/local/r_processing.nf'
+include { SUMMARY } from './modules/local/summary.nf'
 include { validateParameters; paramsHelp; paramsSummaryLog } from 'plugin/nf-validation'
 include { CUSTOM_DUMPSOFTWAREVERSIONS } from './modules/nf-core/custom/dumpsoftwareversions/main'
 
@@ -69,9 +70,7 @@ workflow {
   //Original scripts used R for wrangling the sintax output, same can be done with a single line of bash code so made the R script an optional module
   R_PROCESSING(VSEARCH_SINTAX.out.tsv)
 
-  //Idea
-  //SUMMARY(R_PROCESSING.out.classification.collect())
-  // Where it would collect all the classification files and combine them to produce the same pie charts as in R_processing
+  SUMMARY(R_PROCESSING.out.classification.collect())
 
   CUSTOM_DUMPSOFTWAREVERSIONS (
     ch_versions.collectFile(name: 'collated_versions.yml')
