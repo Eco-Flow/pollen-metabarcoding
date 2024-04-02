@@ -75,6 +75,7 @@ process R_PROCESSING {
       cutoff <- sum(sums\$perc > 0.03)
       top_val <- head(sums\$tax, n = cutoff)
       sums <- sums %>% mutate(legend_value = case_when(tax %in% top_val ~ tax, !(tax %in% top_val) ~ "OTHER" ))
+      write.table(sums, file=paste("${meta.id}",r,".classified.tsv", sep=""), quote=FALSE, sep='\t', row.names = FALSE)
       pie_table <- aggregate(size~legend_value,sums,sum)
       pdf (paste("${meta.id}", ".", r, ".pdf", sep = ""), width=6, height=6)
       pie(pie_table\$size, pie_table\$legend_value, clockwise = T)
