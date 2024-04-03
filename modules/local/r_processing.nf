@@ -7,10 +7,6 @@ process R_PROCESSING {
     input:
     tuple val(meta), path(sintax_tsv)
 
-    //Only process files that have taxonomy predictions 
-    when:
-    sintax_tsv.size() > 0
-
     output:
     tuple val(meta), path('*.classified.tsv')   , emit: classification
     tuple val(meta), path('*.pdf')   , emit: pie

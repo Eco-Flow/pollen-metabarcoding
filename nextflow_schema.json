@@ -162,8 +162,9 @@
           "description": "Enable cleanup function."
         },
         "seed": {
-          "type": "string",
-          "description": "vsearch sinxtax random seed parameter."
+          "type": "number",
+          "description": "vsearch sinxtax random seed parameter.",
+          "default": 1312
         }
       }
     },
