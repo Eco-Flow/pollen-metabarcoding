@@ -108,6 +108,17 @@ results
 │       │   ├── genus.pdf
 │       │   └── order.pdf
 │       └── summary.tsv
+├── usearch
+│   └── sintax_summary
+│       ├── sample
+│           ├── class_summary.txt
+│           ├── domain_summary.txt
+│           ├── family_summary.txt
+│           ├── genus_summary.txt
+│           ├── kingdom_summary.txt
+│           ├── order_summary.txt
+│           ├── phylum_summary.txt
+│           └── species_summary.txt
 └── vsearch
     ├── derep
     │   ├── clusterings
@@ -136,6 +147,8 @@ results
 1. `classfied.tsv` - tsv containing taxonomy prediction information.
 2. `pie_charts` - pdfs of top predicted species for different taxonomic level
 3. `summary.tsv` - tsv containing summary statistics.
+
+`usearch` - text files containing the name, number of reads, percentage of reads and cumulative percentage of reads for each taxonomic level.
 
 `vsearch`
 1. `derep`
