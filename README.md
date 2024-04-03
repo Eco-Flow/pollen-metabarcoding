@@ -69,7 +69,7 @@ This will produce a directory in the current directory called `synteny-VERSION` 
 * `--sizeout` - vsearch fasta abundance annotations parameter.
 * `--sintax_cutoff` - vsearch sintax cutoff parameter.
 * `--sintax_strand` - vsearch sintax strand parameter.
-* `--seed` - vsearch sinxtax random seed parameter.
+* `--seed` - vsearch sinxtax random seed parameter **[default: 1312]**.
 
 #### AWS parameters (ensure these match the infrastructure you have access to if using AWS)
 * `--awsqueue` - aws queue to use with aws batch.
@@ -83,6 +83,7 @@ Once completed, your output directory should be called results (unless you speci
 
 ```
 results
+├── cut_tsvs
 ├── cutadapt
 │   ├── fastqs
 │   └── logs
@@ -101,6 +102,13 @@ results
 │   ├── pipeline_dag.html
 │   └── software_versions.yml
 ├── r-processing
+│   └── sample
+│       ├── classified.tsv
+│       ├── pie_charts
+│       │   ├── family.pdf
+│       │   ├── genus.pdf
+│       │   └── order.pdf
+│       └── summary.tsv
 └── vsearch
     ├── derep
     │   ├── clusterings
@@ -111,6 +119,8 @@ results
     │   └── logs
     └── sintax
 ```
+
+`cut_tsvs` - directory containing tsvs of first 2 columns of sintax data
 
 `cutadapt`
 1. `fastqs` - directory containing adapter trimmed fastqs files for each sample.
@@ -123,7 +133,10 @@ results
 
 `pipeline_info` - directory containing pipeline statistics including co2 emissions.
 
-`r-processing` - directory containing taxonomy prediction information for each sample.
+`r-processing`
+1. `classfied.tsv` - tsv containing taxonomy prediction information.
+2. `pie_charts` - pdfs of top predicted species for different taxonomic level
+3. `summary.tsv` - tsv containing summary statistics.
 
 `vsearch`
 1. `derep`
