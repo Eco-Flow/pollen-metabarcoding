@@ -66,7 +66,6 @@ This will produce a directory in the current directory called `synteny-VERSION` 
 * `--fasta_width` - vsearch fasta width parameter.
 * `--minuniquesize` - vsearch min unique size parameter **[default: 2]**.
 * `--derep_strand` - vsearch fastq dereplicate strand parameter.
-* `--sizeout` - vsearch fasta abundance annotations parameter.
 * `--sintax_cutoff` - vsearch sintax cutoff parameter.
 * `--sintax_strand` - vsearch sintax strand parameter.
 * `--seed` - vsearch sinxtax random seed parameter **[default: 1312]**.
@@ -198,12 +197,14 @@ nextflow run main.nf -profile singularity,test_small -resume
 
 * Running the pipeline with additional parameters:
 ```
-nextflow run main.nf -profile apptainer,local -resume --input data/input_full-s3.csv \
+nextflow run main.nf -profile apptainer,local -resume \
+   --input data/input_full-s3.csv \
    --database "s3://pollen-metabarcoding-test-data/data/viridiplantae_all_2014.sintax.fa" \
    --FW_primer "ATGCGATACTTGGTGTGAAT" --RV_primer "GCATATCAATAAGCGGAGGA" \
-   --clean false --single_end false --retain_untrimmed true \
+   --clean false \
+   --retain_untrimmed true \
    --fastq_maxee 0.5 --fastq_minlen 250 --fastq_maxns 0 --fasta_width 0 \
-   --minuniquesize 2 --derep_strand "plus" --sizeout \
+   --derep_strand "plus" \
    --sintax_strand "both" --sintax_cutoff 0.95
 ```
 

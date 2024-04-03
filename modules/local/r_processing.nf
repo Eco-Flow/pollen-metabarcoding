@@ -16,9 +16,8 @@ process R_PROCESSING {
     """
     #!/usr/bin/Rscript
     library(dplyr)
-    library(data.table)
 
-    data <- fread("${sintax_tsv}", header=F, sep="\t", fill = T, select = c(1:2))
+    data <- read.table("${sintax_tsv}", header=F, sep="\t")
     data <- data %>% mutate_all(na_if,"")
 
     id <- data.frame(do.call('rbind', strsplit(as.character(data\$V1), ';', fixed=TRUE)))[1]

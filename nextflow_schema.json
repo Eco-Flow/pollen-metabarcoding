@@ -144,10 +144,6 @@
           "type": "string",
           "description": "vsearch fastq dereplicate strand parameter."
         },
-        "sizeout": {
-          "type": "boolean",
-          "description": "vsearch fasta abundance annotations parameter."
-        },
         "sintax_cutoff": {
           "type": "number",
           "description": "vsearch sintax cutoff parameter."
