@@ -145,7 +145,7 @@ results
   - `logs` - directory containing vsearch dereplicate statistics for each sample.
 2. `fastq_filter`
   - `fastas` - directory containing filtered fastas for each sample.
-  - logs` - directory containing vsearch fastq_filter statistics for each sample.
+  - `logs` - directory containing vsearch fastq_filter statistics for each sample.
 3. `sintax` - directory containing vsearch sintax taxonomy prediction output files.
 
 ## Configuration
