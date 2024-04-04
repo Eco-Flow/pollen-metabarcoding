@@ -216,7 +216,7 @@ nextflow run main.nf -profile singularity,test_small -resume
 * Running the pipeline with additional parameters:
 ```
 nextflow run main.nf -profile apptainer,local -resume \
-   --input data/input_full-s3.csv \
+   --input data/input_small-s3.csv \
    --database "s3://pollen-metabarcoding-test-data/data/viridiplantae_all_2014.sintax.fa" \
    --FW_primer "ATGCGATACTTGGTGTGAAT" --RV_primer "GCATATCAATAAGCGGAGGA" \
    --clean false \
@@ -227,7 +227,7 @@ nextflow run main.nf -profile apptainer,local -resume \
 
 * Running the pipeline with a custom config file:
 ```
-nextflow run main.nf -profile docker,aws_batch -resume --input data/input_full-s3.csv --database "s3://pollen-metabarcoding-test-data/data/viridiplantae_all_2014.sintax.fa" --FW_primer "ATGCGATACTTGGTGTGAAT" --RV_primer "GCATATCAATAAGCGGAGGA" --custom_config /path/to/custom/config
+nextflow run main.nf -profile docker,aws_batch -resume --input data/input_manual.csv --database "s3://pollen-metabarcoding-test-data/data/viridiplantae_all_2014.sintax.fa" --FW_primer "ATGCGATACTTGGTGTGAAT" --RV_primer "GCATATCAATAAGCGGAGGA" --custom_config /path/to/custom/config
 ```
 
 ## Test Data 
