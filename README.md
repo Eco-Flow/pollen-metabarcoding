@@ -49,7 +49,6 @@ This will produce a directory in the current directory called `synteny-VERSION` 
 * `--cutadapt_max_error_rate` - Cutadapt max error rate parameter **[default: 0.1]**.
 * `--pacbio` - Cutadapt pacbio parameter.
 * `--iontorrent` - Cutadapt iontorrent parameter.
-* `--retain_untrimmed` - Cutadapt retain untrimmed parameter.
 * `--pear_p_value` - Pear p-value parameter.
 * `--pear_min_overlap` - Pear min overlap parameter.
 * `--pear_max_len` - Pear max length parameter.
