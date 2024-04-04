@@ -2,12 +2,12 @@
     "r_processing": {
         "content": [
             "ERR2537816.classified.tsv:md5,d7536874f239e304cca7667dc1ffde4d",
-            "summary.tsv:md5,4a575d1bc4bfb5f79cf160ae793e9c30"
+            "summary.tsv:md5,cdd728c2daee0aa13fcee439ff3460c2"
         ],
         "meta": {
             "nf-test": "0.8.4",
             "nextflow": "23.10.1"
         },
-        "timestamp": "2024-03-27T13:36:37.712309"
+        "timestamp": "2024-04-04T11:11:20.884715539"
     }
 }
