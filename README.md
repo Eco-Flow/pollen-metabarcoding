@@ -226,6 +226,12 @@ nextflow run main.nf -profile apptainer,local -resume \
 nextflow run main.nf -profile docker,aws_batch -resume --input data/input_full-s3.csv --database "s3://pollen-metabarcoding-test-data/data/viridiplantae_all_2014.sintax.fa" --FW_primer "ATGCGATACTTGGTGTGAAT" --RV_primer "GCATATCAATAAGCGGAGGA" --custom_config /path/to/custom/config
 ```
 
+* Running on Gitpod:
+If you wish to run on Gitpod, please be aware that the usearch (sintax_summary) module will fail, as Gitpod doesn't allow 32bit programs.
+```
+nextflow run main.nf -profile docker,test_small -resume --gitpod
+```
+
 ## Test Data 
 The data used to test this pipeline via the [ENA ID: PRJEB26439](http://www.ebi.ac.uk/ena/data/view/PRJEB26439).
 There are two test profiles using this data:
