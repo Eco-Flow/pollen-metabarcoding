@@ -220,7 +220,6 @@ nextflow run main.nf -profile apptainer,local -resume \
    --database "s3://pollen-metabarcoding-test-data/data/viridiplantae_all_2014.sintax.fa" \
    --FW_primer "ATGCGATACTTGGTGTGAAT" --RV_primer "GCATATCAATAAGCGGAGGA" \
    --clean false \
-   --retain_untrimmed true \
    --fastq_maxee 0.5 --fastq_minlen 250 --fastq_maxns 0 --fasta_width 0 \
    --derep_strand "plus" \
    --sintax_strand "both" --sintax_cutoff 0.95
