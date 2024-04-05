@@ -91,8 +91,10 @@ workflow {
   VSEARCH_SINTAX(ch_sintax.fa, ch_sintax.db)
   ch_versions = ch_versions.mix(VSEARCH_SINTAX.out.versions.first())
 
+  if (params.gitpod == null){
   USEARCH_SINTAX_SUMMARY(VSEARCH_SINTAX.out.tsv)
   ch_versions = ch_versions.mix(USEARCH_SINTAX_SUMMARY.out.versions.first())
+  }
 
   //Sometimes sintax produces different row lengths, only need first 2
   CUTTING(VSEARCH_SINTAX.out.tsv) | R_PROCESSING

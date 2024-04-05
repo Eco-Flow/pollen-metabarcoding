@@ -191,6 +191,10 @@
         "forks": {
           "type": "number",
           "description": "Maximum number of each process that will be run in parallel."
+        },
+        "gitpod": {
+          "type": "boolean",
+          "description": "Skips usearch process, which does not run on gitpod (32bit)"
         }
       }
     },
