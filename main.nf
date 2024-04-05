@@ -17,8 +17,10 @@ log.info """\
 
  =========================================""".stripIndent()
 
-include { PEAR } from './modules/nf-core/pear/main'
+include { SRATOOLS_PREFETCH } from './modules/nf-core/sratools/prefetch/main'
+include { SRATOOLS_FASTERQDUMP } from './modules/nf-core/sratools/fasterqdump/main'
 include { CUTADAPT } from './modules/nf-core/cutadapt/main'
+include { PEAR } from './modules/nf-core/pear/main'
 include { VSEARCH_FASTQ_FILTER } from './modules/local/vsearch_fastq_filter.nf'
 include { VSEARCH_DEREP_FULL_LENGTH } from './modules/local/vsearch_derep.nf'
 include { VSEARCH_SINTAX } from './modules/nf-core/vsearch/sintax/main'
@@ -44,14 +46,35 @@ workflow {
   //Make a channel for version outputs:
   ch_versions = Channel.empty()
 
-  //Input to cutadapt depends on whether a single-end fastq or a set of paired-end fastqs are provided
-  if (params.single_end == true) {
-     Channel.fromPath(params.input) | flatMap{ it.readLines() } | map{ csv -> [ [ "id":csv.split(",")[0], "single_end": true ], [ csv.split(",")[1] ] ] } | CUTADAPT
-  }
-  else {
-     Channel.fromPath(params.input) | flatMap{ it.readLines() } | map{ csv -> [ [ "id":csv.split(",")[0], "single_end": false ], [ csv.split(",")[1], csv.split(",")[2] ] ] } | CUTADAPT
-  }
-  ch_versions = ch_versions.mix(CUTADAPT.out.versions.first())
+  //Split processing depending on whether two or three elements are provided on each row of input file
+  Channel.fromPath(params.input) | splitCsv | branch { two: it.size() == 2; three: it.size() == 3 } | set { input_type }
+
+  //If three elements are provided then the data is paired end so organised appropriately
+  input_type.three | map{ csv -> [ [ "id":csv[0], "single_end": false ], [ csv[1], csv[2] ] ] } | set { three_tuple }
+
+  //If a row in input file is 2 elements then it could be single end fastq or an sra so need to filter accordingly
+  input_type.two | branch { fastq: it[1] =~ /\.f.*q\.gz$/ || it[1] =~ /\.f.*q$/; sra: it[1] !=~ /\.f.*q\.gz$/ || it[1] !=~ /\.f.*q$/ } | set { ch_extension }
+
+  //Combine single end fastqs channel with paired end fastqs channel
+  ch_extension.fastq | map{ csv -> [ [ "id":csv[0], "single_end": true ], [ csv[1] ] ] } | mix(three_tuple) | set { fastqs_combined }
+
+  //Input parameter "--single_end' determines whether sras are assumed to be single_end or not
+  ch_sra = params.single_end == true ? ch_extension.sra | map{ csv -> [ [ "id":csv[0], "single_end": true ], csv[1] ] } : ch_extension.sra | map{ csv -> [ [ "id":csv[0], "single_end": false ], csv[1] ] }
+
+  //Provide ncbi_settings and certificate if provided
+  ch_ncbi_settings = params.ncbi_settings != null ? Channel.fromPath(params.ncbi_settings) : []
+  ch_certificate = params.certificate != null ? Channel.fromPath(params.certificate) : []
+
+  //Need to ensure ncbi_settings and certificate are provided to each sra
+  ch_sra | multiMap { it -> sra: [it[0], it[1]]; ncbi: ch_ncbi_settings; cert: ch_certificate } | set { ch_prefetch }
+
+  SRATOOLS_PREFETCH(ch_prefetch.sra, ch_prefetch.ncbi, ch_prefetch.cert)
+  SRATOOLS_FASTERQDUMP(SRATOOLS_PREFETCH.out.sra, ch_prefetch.ncbi, ch_prefetch.cert)
+
+  //Combine provided fastqs with sra fastqs
+  fastqs_combined | mix(SRATOOLS_FASTERQDUMP.out.reads) | set { all_fqs }
+
+  CUTADAPT(all_fqs)
 
   CUTADAPT.out.reads | PEAR
   ch_versions = ch_versions.mix(PEAR.out.versions.first())
@@ -83,7 +106,6 @@ workflow {
   CUSTOM_DUMPSOFTWAREVERSIONS (
     ch_versions.collectFile(name: 'collated_versions.yml')
   )
-  
 }
 
 workflow.onComplete {

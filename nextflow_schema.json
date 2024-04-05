@@ -75,10 +75,6 @@
           "type": "boolean",
           "description": "Cutadapt module iontorrent parameter."
         },
-        "retain_untrimmed": {
-          "type": "boolean",
-          "description": "Cutadapt retain untrimmed parameter."
-        },
         "pear_p_value": {
           "type": "integer",
           "description": "Pear p-value parameter."
@@ -161,6 +157,14 @@
           "type": "number",
           "description": "vsearch sinxtax random seed parameter.",
           "default": 1312
+        },
+        "ncbi_settings": {
+          "type": "string",
+          "description": "Path to ncbi_settings folder"
+        },
+        "certificate": {
+          "type": "string",
+          "description": "Path to certificate file"
         }
       }
     },

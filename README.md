@@ -27,14 +27,14 @@ This will produce a directory in the current directory called `synteny-VERSION` 
 
 ### Required
 
-* `--input` - Path to a comma-separated file containing sample id and path to the fastq(s). Each row contains information on a singular sample.
+* `--input` - Path to a comma-separated file containing sample id and either path to the fastq(s) or an SRA ID. Each row contains information on a singular sample.
 * `--database` - Path to database fasta file to be used in vsearch sintax module.
 * `--outdir` - Path to the output directory where the results will be saved (you have to use absolute paths to storage on cloud infrastructure) **[default: results]**.  
 * `--FW_primer` - Sequence of the forward primer.
 * `--RV_primer` - Sequence of the reverse primer.
 
 ### Optional
-* `--single_end` - Tells pipeline whether to expect single end or paired-end data **[default: false]**.
+* `--single_end` - Tells pipeline whether to expect single end or paired-end sra data **[default: false]**.
 * `--custom_config` - A path/url to a custom configuration file.
 * `--publish_dir_mode` - Method used to save pipeline results to output directory. (accepted: symlink, rellink, link, copy, copyNoFollow, move) **[default: copy]**. 
 * `--clean` - Enable cleanup function **[default: true]**.
@@ -49,7 +49,6 @@ This will produce a directory in the current directory called `synteny-VERSION` 
 * `--cutadapt_max_error_rate` - Cutadapt max error rate parameter **[default: 0.1]**.
 * `--pacbio` - Cutadapt pacbio parameter.
 * `--iontorrent` - Cutadapt iontorrent parameter.
-* `--retain_untrimmed` - Cutadapt retain untrimmed parameter.
 * `--pear_p_value` - Pear p-value parameter.
 * `--pear_min_overlap` - Pear min overlap parameter.
 * `--pear_max_len` - Pear max length parameter.
@@ -69,6 +68,8 @@ This will produce a directory in the current directory called `synteny-VERSION` 
 * `--sintax_cutoff` - vsearch sintax cutoff parameter.
 * `--sintax_strand` - vsearch sintax strand parameter.
 * `--seed` - vsearch sinxtax random seed parameter **[default: 1312]**.
+* `--ncbi_settings` - Path to NCBI settings folder.
+* `--certificate` - Path to certificate file.
 
 #### AWS parameters (ensure these match the infrastructure you have access to if using AWS)
 * `--awsqueue` - aws queue to use with aws batch.
@@ -108,6 +109,8 @@ results
 │       │   ├── genus.pdf
 │       │   └── order.pdf
 │       └── summary.tsv
+├── sratools_fasterq-dump
+│   └── sample
 ├── usearch
 │   └── sintax_summary
 │       ├── sample
@@ -147,6 +150,8 @@ results
 1. `classfied.tsv` - tsv containing taxonomy prediction information.
 2. `pie_charts` - pdfs of top predicted species for different taxonomic level
 3. `summary.tsv` - tsv containing summary statistics.
+
+`sratools_fasterq-dump` - fastqs obtained from SRA ID.
 
 `usearch` - text files containing the name, number of reads, percentage of reads and cumulative percentage of reads for each taxonomic level.
 
@@ -211,11 +216,10 @@ nextflow run main.nf -profile singularity,test_small -resume
 * Running the pipeline with additional parameters:
 ```
 nextflow run main.nf -profile apptainer,local -resume \
-   --input data/input_full-s3.csv \
+   --input data/input_small-s3.csv \
    --database "s3://pollen-metabarcoding-test-data/data/viridiplantae_all_2014.sintax.fa" \
    --FW_primer "ATGCGATACTTGGTGTGAAT" --RV_primer "GCATATCAATAAGCGGAGGA" \
    --clean false \
-   --retain_untrimmed true \
    --fastq_maxee 0.5 --fastq_minlen 250 --fastq_maxns 0 --fasta_width 0 \
    --derep_strand "plus" \
    --sintax_strand "both" --sintax_cutoff 0.95
@@ -223,7 +227,7 @@ nextflow run main.nf -profile apptainer,local -resume \
 
 * Running the pipeline with a custom config file:
 ```
-nextflow run main.nf -profile docker,aws_batch -resume --input data/input_full-s3.csv --database "s3://pollen-metabarcoding-test-data/data/viridiplantae_all_2014.sintax.fa" --FW_primer "ATGCGATACTTGGTGTGAAT" --RV_primer "GCATATCAATAAGCGGAGGA" --custom_config /path/to/custom/config
+nextflow run main.nf -profile docker,aws_batch -resume --input data/input_manual.csv --database "s3://pollen-metabarcoding-test-data/data/viridiplantae_all_2014.sintax.fa" --FW_primer "ATGCGATACTTGGTGTGAAT" --RV_primer "GCATATCAATAAGCGGAGGA" --custom_config /path/to/custom/config
 ```
 
 * Running on Gitpod:
