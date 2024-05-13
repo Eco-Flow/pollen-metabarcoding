@@ -189,7 +189,6 @@ Please select one of the following profiles when running the pipeline.
 
 #### Optional Profiles
 
-* `local` - This profile is used if you are running the pipeline on your local machine.
 * `aws_batch` - This profile is used if you are running the pipeline on AWS utilising the AWS Batch functionality. **Please Note:** You must use the `Docker` profile with with AWS Batch.
 * `test` - This profile is used if you want to test running the pipeline on your infrastructure. **Please Note:** You do not provide any input parameters if this profile is selected but you still provide a container profile.
 
@@ -201,9 +200,9 @@ If you want to run this pipeline on your institute's on-premise HPC or specific 
 
 **Please note:** The `-resume` flag uses previously cached successful runs of the pipeline.
 
-* Running the pipeline with local and Docker profiles:
+* Running the pipeline with Docker profiles:
 ```
-nextflow run main.nf -profile docker,local -resume --input data/input_full-s3.csv --database "s3://pollen-metabarcoding-test-data/data/viridiplantae_all_2014.sintax.fa" --FW_primer "ATGCGATACTTGGTGTGAAT" --RV_primer "GCATATCAATAAGCGGAGGA"
+nextflow run main.nf -profile docker -resume --input data/input_full-s3.csv --database "s3://pollen-metabarcoding-test-data/data/viridiplantae_all_2014.sintax.fa" --FW_primer "ATGCGATACTTGGTGTGAAT" --RV_primer "GCATATCAATAAGCGGAGGA"
 ```
 
 (The example database was obtained from [molbiodiv/meta-barcoding-dual-indexing](https://github.com/molbiodiv/meta-barcoding-dual-indexing/blob/master/precomputed/viridiplantae_all_2014.sintax.fa)).
@@ -215,7 +214,7 @@ nextflow run main.nf -profile singularity,test_small -resume
 
 * Running the pipeline with additional parameters:
 ```
-nextflow run main.nf -profile apptainer,local -resume \
+nextflow run main.nf -profile apptainer -resume \
    --input data/input_small-s3.csv \
    --database "s3://pollen-metabarcoding-test-data/data/viridiplantae_all_2014.sintax.fa" \
    --FW_primer "ATGCGATACTTGGTGTGAAT" --RV_primer "GCATATCAATAAGCGGAGGA" \
