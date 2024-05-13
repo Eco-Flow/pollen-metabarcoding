@@ -13,15 +13,15 @@ Nextflow pipelines require a few prerequisites. There is further documentation o
 
 ### Install
 
-To install the pipeline please use the following commands but replace VERSION with a [release](https://github.com/Eco-Flow/synteny/releases).
+To install the pipeline please use the following commands but replace VERSION with a [release](https://github.com/Eco-Flow/pollen-metabarcoding/releases).
 
-`wget https://github.com/Eco-Flow/synteny/archive/refs/tags/VERSION.tar.gz -O - | tar -xvf -`
+`wget https://github.com/Eco-Flow/pollen-metabarcoding/archive/refs/tags/VERSION.tar.gz -O - | tar -xvf -`
 
 or
 
-`curl -L https://github.com/Eco-Flow/synteny/archive/refs/tags/VERSION.tar.gz --output - | tar -xvf -`
+`curl -L https://github.com/Eco-Flow/pollen-metabarcoding/archive/refs/tags/VERSION.tar.gz --output - | tar -xvf -`
 
-This will produce a directory in the current directory called `synteny-VERSION` which contains the pipeline.
+This will produce a directory in the current directory called `pollen-metabarcoding-VERSION` which contains the pipeline.
 
 ## Inputs
 
