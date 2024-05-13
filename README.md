@@ -80,7 +80,9 @@ This will produce a directory in the current directory called `pollen-metabarcod
 
 #### Creating a input sample sheet
 
-In order to create an input sample sheet in the correct format, you can use the python script in the `bin` directory. This has been edited from [nf-core rnaseq] (https://github.com/nf-core/rnaseq/blob/master/bin/fastq_dir_to_samplesheet.py). 
+In order to create an input sample sheet in the correct format, you can use the python script in the `bin` directory. 
+
+This has been edited from [nf-core rnaseq](https://github.com/nf-core/rnaseq/blob/master/bin/fastq_dir_to_samplesheet.py). 
 
 You can use it when all your fastq files are in a single folder and end with `_R1_001.fastq.gz`. 
 
