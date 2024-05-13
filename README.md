@@ -77,6 +77,19 @@ This will produce a directory in the current directory called `pollen-metabarcod
 * `--awscli` - path to aws cli installation on host instance.
 * `--s3bucket` - s3 bucket path to use as work directory.
 
+
+#### Creating a input sample sheet
+
+In order to create an input sample sheet in the correct format, you can use the python script in the `bin` directory. This has been edited from [nf-core rnaseq] (https://github.com/nf-core/rnaseq/blob/master/bin/fastq_dir_to_samplesheet.py). 
+
+You can use it when all your fastq files are in a single folder and end with `_R1_001.fastq.gz`. 
+
+`python3 fastq_dir_to_samplesheet.py /path/to/fastq/files Input.csv`
+
+Where `Input.csv` is the name of the file I want to name the samplesheet.
+
+And `/path/to/fastq/files` is the full path to the folder with your fastq data.
+
 ## Results
 
 Once completed, your output directory should be called results (unless you specified another name) and should contain the following directory structure:
