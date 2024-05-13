@@ -80,17 +80,19 @@ This will produce a directory in the current directory called `pollen-metabarcod
 
 #### Creating a input sample sheet
 
-In order to create an input sample sheet in the correct format, you can use the python script in the `bin` directory. 
+In order to create an input sample sheet in the correct format, you can use the python script -> [here](https://github.com/Eco-Flow/pollen-metabarcoding/blob/main/bin/fastq_dir_to_samplesheet.py).
 
-This has been edited from [nf-core rnaseq](https://github.com/nf-core/rnaseq/blob/master/bin/fastq_dir_to_samplesheet.py). 
+This has been edited from an [nf-core rnaseq](https://github.com/nf-core/rnaseq/blob/master/bin/fastq_dir_to_samplesheet.py) script.
 
-You can use it when all your fastq files are in a single folder and end with `_R1_001.fastq.gz`. 
+You can use it when all your fastq files are in a single folder and end with `_R1_001.fastq.gz` and/or `_R2_001.fastq.gz`.
+
+**Usage:**
 
 `python3 fastq_dir_to_samplesheet.py /path/to/fastq/files Input.csv`
 
-Where `Input.csv` is the name of the file I want to name the samplesheet.
+* Where `Input.csv` is the name of the file I want to name the samplesheet.
 
-And `/path/to/fastq/files` is the full path to the folder with your fastq data.
+* And `/path/to/fastq/files` is the full path to the folder with your fastq data.
 
 ## Results
 
