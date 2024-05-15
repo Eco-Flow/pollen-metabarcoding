@@ -94,6 +94,8 @@ You can use it when all your fastq files are in a single folder and end with `_R
 
 * And `/path/to/fastq/files` is the full path to the folder with your fastq data.
 
+* If you have a variant ending to read 1 and read 2, you can specify endings with the `--read1_extension` and `--read2_extension` flags. Default is "_R1_001.fastq.gz".
+
 ## Results
 
 Once completed, your output directory should be called results (unless you specified another name) and should contain the following directory structure:
