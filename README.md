@@ -226,6 +226,9 @@ nextflow run main.nf -profile docker -resume --input data/input_full-s3.csv --da
 
 (The example database was obtained from [molbiodiv/meta-barcoding-dual-indexing](https://github.com/molbiodiv/meta-barcoding-dual-indexing/blob/master/precomputed/viridiplantae_all_2014.sintax.fa)).
 
+The database should be a list of fasta sequences, where the header name contains kingdom (k),  phylum (p), c (class), o (order), f (family), g (genus) and s (species) identifiers (separated by comma). If your database does not contain all these definitions the pipeline will fail. We currently have a branch that will work with k (kindgom), called 'kingdom_fix'. To use this, clone the repo with the `--branch kingdom_fix` flag.
+ 
+
 * Running the pipeline with Singularity and test profiles:
 ```
 nextflow run main.nf -profile singularity,test_small -resume
