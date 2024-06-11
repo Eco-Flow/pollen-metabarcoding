@@ -3,6 +3,7 @@ library(dplyr)
 library(hash)
 
 args <- commandArgs(trailingOnly = TRUE)
+small<- strsplit(args[1], "[.]")[[1]][2]
 
 data <- read.table(args[1], header=F, sep="\t")
 data <- data %>% mutate_all(na_if,"")
@@ -39,7 +40,7 @@ outdf <- cbind(outdf, size)
 tablecolnames <- c(tablecolnames, "size" )
 colnames(outdf)<-tablecolnames
 
-write.table(outdf, file=paste(args[2], ".classified.tsv", sep=""), quote=FALSE, sep='\t', row.names = FALSE)
+write.table(outdf, file=paste(small, ".classified.tsv", sep=""), quote=FALSE, sep='\t', row.names = FALSE)
 
 #Function for making pie charts
 pie_plots <- function(r){
@@ -51,7 +52,7 @@ pie_plots <- function(r){
     top_val <- head(sums$tax, n = cutoff)
     sums <- sums %>% mutate(legend_value = case_when(tax %in% top_val ~ tax, !(tax %in% top_val) ~ "OTHER" ))
     pie_table <- aggregate(size~legend_value,sums,sum)
-    pdf (paste(args[2], ".", r, ".pdf", sep = ""), width=6, height=6)
+    pdf (paste(small, ".", r, ".pdf", sep = ""), width=6, height=6)
     pie(pie_table$size, pie_table$legend_value, clockwise = T)
     dev.off()
 }

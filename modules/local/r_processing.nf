@@ -2,7 +2,7 @@ process R_PROCESSING {
     tag "${meta.id}"
     label 'process_low'
 
-    container = 'ecoflowucl/rocker-r_base:r-base-4.3.3_dplyr-1.1.4'
+    container = 'ecoflowucl/rocker-r_base:r-base-4.3.3_dplyr-1.1.4_hash'
 
     input:
     tuple val(meta), path(sintax_tsv)
@@ -14,8 +14,7 @@ process R_PROCESSING {
 
     script:
     """
-    cp ${sintax_tsv} my_input
     #Run the R script in \$projectDir/bin/r_processing.R
-    r_processing.R
+    r_processing.R ${sintax_tsv}
     """
 }
