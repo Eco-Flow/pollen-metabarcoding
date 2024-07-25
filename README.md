@@ -226,9 +226,8 @@ nextflow run main.nf -profile docker -resume --input data/input_full-s3.csv --da
 
 (The example database was obtained from [molbiodiv/meta-barcoding-dual-indexing](https://github.com/molbiodiv/meta-barcoding-dual-indexing/blob/master/precomputed/viridiplantae_all_2014.sintax.fa)).
 
-The database should be a list of fasta sequences, where the header name contains kingdom (k),  phylum (p), c (class), o (order), f (family), g (genus) and s (species) identifiers (separated by comma). If your database does not contain all these definitions the pipeline will fail. We currently have a branch that will work with k (kindgom), called 'kingdom_fix'. To use this, clone the repo with the `--branch kingdom_fix` flag.
+The database should be a list of fasta sequences, where the header name contains kingdom (k),  phylum (p), c (class), o (order), f (family), g (genus) and s (species) identifiers (separated by comma). If your database does not contain all these definitions the pipeline will fail. If you do not have this structure, you can run the script `bin/sanitise_database.pl` on your database, and it will infill any missing classification data with `null`.
  
-
 * Running the pipeline with Singularity and test profiles:
 ```
 nextflow run main.nf -profile singularity,test_small -resume
@@ -236,7 +235,7 @@ nextflow run main.nf -profile singularity,test_small -resume
 
 * Running the pipeline with additional parameters:
 ```
-nextflow run main.nf -profile apptainer -resume \
+nextflow run main.nf -profile docker -resume \
    --input data/input_small-s3.csv \
    --database "s3://pollen-metabarcoding-test-data/data/viridiplantae_all_2014.sintax.fa" \
    --FW_primer "ATGCGATACTTGGTGTGAAT" --RV_primer "GCATATCAATAAGCGGAGGA" \
