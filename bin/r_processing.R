@@ -15,7 +15,7 @@ size$X2 <- as.numeric(size$X2)
 
 classif <- data.frame(do.call('rbind', strsplit(as.character(data$V2),',',fixed=TRUE)))
 
-h <- hash(k="kingdom", p="phylum", o="order", f="family", g="genus", s="species")
+h <- hash(k="kingdom", p="phylum", c="class", o="order", f="family", g="genus", s="species")
 
 tax_vars = c()
 outdf = c()
