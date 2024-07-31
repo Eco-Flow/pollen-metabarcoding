@@ -9,7 +9,6 @@ tasks:
       curl -fsSL https://code.askimed.com/install/nf-test | bash
     command: |
       export PATH=/workspace/pollen-metabarcoding:$PATH
-      nextflow info
       nextflow self-update
       nextflow info
       unset JAVA_TOOL_OPTIONS
