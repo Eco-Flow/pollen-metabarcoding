@@ -10,6 +10,8 @@ tasks:
     command: |
       export PATH=/workspace/pollen-metabarcoding:$PATH
       nextflow info
+      nextflow self-update
+      nextflow info
       unset JAVA_TOOL_OPTIONS
       echo 'Starting workspace !'
       sudo apt-get update
