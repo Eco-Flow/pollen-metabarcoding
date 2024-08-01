@@ -27,7 +27,7 @@ for (x in 1:length(classif) ) {
 	my_res<-data.frame(do.call('rbind', strsplit(gsub(")", "",classif[[tvar]] ),'(',fixed=TRUE)))
 	my_tax <- strsplit(my_res$X1[1],':')[[1]][1]
 	full_name<- h[[paste0(strsplit(my_res$X1[1],':')[[1]][1])]]
-	my_res$X1 <- strsplit(my_res$X1[1],':')[[1]][2]
+	my_res$X1 <- sub("^[a-z]:", "", my_res$X1)
 	my_res$X2 <- as.numeric(my_res$X2)
 	tax_vars <- c(tax_vars, my_tax)
 	outdf <- cbind(outdf, my_res)
@@ -36,6 +36,7 @@ for (x in 1:length(classif) ) {
 	tablecolnames <- c(tablecolnames, prob_name )
 }
 
+#Add the size onto the table and give this a header of "size"
 outdf <- cbind(outdf, size)
 tablecolnames <- c(tablecolnames, "size" )
 colnames(outdf)<-tablecolnames
