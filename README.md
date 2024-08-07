@@ -266,8 +266,6 @@ There are two test profiles using this data:
 
 If you need any support do not hesitate to contact us at any of:
 
-`simon.murray [at] ucl.ac.uk`
-
 `c.wyatt [at] ucl.ac.uk`
 
 `ecoflow.ucl [at] gmail.com`
