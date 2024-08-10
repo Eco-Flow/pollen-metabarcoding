@@ -37,7 +37,7 @@ This will produce a directory in the current directory called `pollen-metabarcod
 * `--single_end` - Tells pipeline whether to expect single end or paired-end sra data **[default: false]**.
 * `--custom_config` - A path/url to a custom configuration file.
 * `--publish_dir_mode` - Method used to save pipeline results to output directory. (accepted: symlink, rellink, link, copy, copyNoFollow, move) **[default: copy]**. 
-* `--clean` - Enable cleanup function **[default: true]**.
+* `--clean` - Enable cleanup function **[default: false]**.
 * `--forks` - Maximum number of each process that will be run in parallel.
 * `--max_cpus` - Maximum number of CPUs that can be requested for any single job **[default: 16]**.
 * `--max_memory` - Maximum amount of memory that can be requested for any single job **[default: 128.GB]**.
@@ -239,7 +239,6 @@ nextflow run main.nf -profile docker -resume \
    --input data/input_small-s3.csv \
    --database "s3://pollen-metabarcoding-test-data/data/viridiplantae_all_2014.sintax.fa" \
    --FW_primer "ATGCGATACTTGGTGTGAAT" --RV_primer "GCATATCAATAAGCGGAGGA" \
-   --clean false \
    --fastq_maxee 0.5 --fastq_minlen 250 --fastq_maxns 0 --fasta_width 0 \
    --derep_strand "plus" \
    --sintax_strand "both" --sintax_cutoff 0.95
