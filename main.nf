@@ -8,9 +8,9 @@ log.info """\
  -----------------------------------------
 
  Authors:
-   - Simon Murray <simon.murray@ucl.ac.uk>
    - Chris Wyatt <c.wyatt@ucl.ac.uk>
-
+   - Simon Murray
+ 
  -----------------------------------------
 
  Copyright (c) 2024
