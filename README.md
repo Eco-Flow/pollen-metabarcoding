@@ -1,5 +1,28 @@
 # nf-pollen-metabarcoding
-A pipeline developed in collaboration with Exeter University
+
+A reproducible Nextflow workflow for processing pollen metabarcoding sequencing data and generating taxonomic profiles of plant species present in pollen samples. The pipeline was developed in collaboration with Exeter University and published in the [Journal of animal ecology : PMC12586786](https://pubmed.ncbi.nlm.nih.gov/40963187/)
+
+<img width="1251" height="201" alt="image" src="https://github.com/user-attachments/assets/fad7ef75-1f17-460d-853c-fb7c45f8cf5e" />
+
+
+
+
+## Introduction
+
+Pollen metabarcoding enables the identification of plant taxa from mixed pollen samples using high-throughput DNA sequencing. These approaches are increasingly used to study pollinator foraging behaviour, plant–pollinator interactions, agricultural landscapes, and ecosystem biodiversity.
+
+
+The pollen-metabarcoding pipeline automates the analysis of raw sequencing data, providing a scalable and reproducible workflow from sequencing reads to taxonomic assignments and ecological summary outputs. Built with Nextflow, the workflow can be executed on local workstations, HPC systems, and cloud environments while maintaining full reproducibility.
+
+
+
+
+## Publication
+
+https://pubmed.ncbi.nlm.nih.gov/40963187/
+
+<img width="709" height="563" alt="JANE-94-2267-g003" src="https://github.com/user-attachments/assets/0200b516-f87b-45c2-9275-342b03a07968" />
+
 
 ## Installation
 
